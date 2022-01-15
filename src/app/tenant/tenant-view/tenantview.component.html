@@ -1,0 +1,406 @@
+<div class="content-wrapper" style="min-height: 1604.44px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Profile</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Tenant Profile</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3">
+
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+                <div class="text-center">
+                  <img class="profile-user-img img-fluid img-circle" src="../../../assets/img/ishwor.PNG" alt="User profile picture">
+                </div>
+
+                <h3 class="profile-username text-center">Ishwor Khadka</h3>
+
+                <div class="btn-toolbar" style=" margin: auto;" role="toolbar" aria-label="Toolbar with button groups">
+                  <div class="btn-group" role="group" aria-label="First group">
+                    <div>
+                      <input type="file" #file placeholder="Choose file" style="margin-bottom:15px; display: none;">
+                      <button type="button" class="btn btn-warning" (click)="file.click()">Update</button>
+                    </div>
+                    <div>
+                      <span class="upload">
+                       
+                      </span>
+                      <span class="upload">
+                        
+                      </span>
+                    </div>
+                    
+                  </div>
+                  <div class="btn-group mr-2" role="group" aria-label="Second group">
+                    <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#modal-user-picture-delete">Delete</button>
+                  </div>
+                </div>
+                
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+            <!-- About Me Box -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">About Me</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+
+                <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+
+                <p class="text-muted">Edwardstown, South Australia</p>
+
+                <hr>
+
+                <strong><i class="fas fa-envelope-square mr-1"></i> Email</strong>
+
+                <p class="text-muted">{{model.email}}</p>
+
+                <hr>
+                <strong><i class="fas fa-phone mr-1"></i> Contact</strong>
+
+                <p class="text-muted">{{model.contact}}</p>
+
+                <hr>
+                <strong><i class="fas fa-calendar-check mr-1"></i> Start Date</strong>
+
+                <p class="text-muted">{{model.startDate}}</p>
+
+               
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-9">
+            <div class="card">
+              <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                  <li class="nav-item custom"><a class="nav-link" href="#activity" data-toggle="tab">Activity</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Settings</a></li>
+                </ul>
+              </div><!-- /.card-header -->
+              <div class="card-body">
+                <div class="tab-content">
+                  <div class="tab-pane" id="timeline">
+                    <!-- The timeline -->
+                    <div class="timeline timeline-inverse" *ngFor="let a_model of activity_list">
+                      <!-- timeline time label -->
+                      <div class="time-label">
+                        <span class="bg-danger">
+                         {{days[a_model.activity_date.getDay()] + ", " + a_model.activity_date.getDate() + "/" + months[a_model.activity_date.getMonth()] + "/" + a_model.activity_date.getFullYear()}}
+                        </span>
+                      </div>
+                      <!-- /.timeline-label -->
+                      <!-- timeline item -->
+                      <div>
+                        <i class="far fa-hand-point-right bg-primary"></i>
+
+                        <div class="timeline-item">
+                          <!-- <span class="time"><i class="far fa-clock"></i> {{a_model.activity_date.getHours() + ':' + a_model.activity_date.getMinutes()}}</span> -->
+                          <span class="time"><i class="far fa-clock"></i> {{a_model.activity_date | date: "HH:mm"}}</span>
+
+                          <h3 class="timeline-header">{{a_model.activity_name}}</h3>
+
+                          <div class="timeline-body">
+                            {{a_model.activity_description}}
+                          </div>
+                        </div>
+                      </div>
+                      <!-- END timeline item -->
+                      <!-- timeline item -->
+                      <div>
+                        <i class="far fa-clock bg-gray"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /.tab-pane -->
+
+                  <div class="tab-pane" id="activity">
+                    <!-- Post -->
+                    <div class="post" *ngFor="let a_model of activity_list">
+                      <div class="user-block">
+                        <img class="img-circle img-bordered-sm" src="../../assets/img/user1-128x128.jpg" alt="user image">
+                        <span class="username">
+                          <a href="#">{{a_model.activity_user_name}}</a>
+                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
+                        </span>
+                        <span class="description">{{days[a_model.activity_date.getDay()] + ", " + a_model.activity_date.getDate() + "/" + months[a_model.activity_date.getMonth()] + "/" + a_model.activity_date.getFullYear() + " " + a_model.activity_date | date: "HH:mm" }}</span>
+                      </div>
+                      <!-- /.user-block -->
+                      <p>
+                        {{a_model.activity_description}}
+                      </p>
+
+                      <!-- <p>
+                        <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
+                        <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
+                        <span class="float-right">
+                          <a href="#" class="link-black text-sm">
+                            <i class="far fa-comments mr-1"></i> Comments (5)
+                          </a>
+                        </span>
+                      </p> -->
+
+                      <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
+                    </div>
+                    <!-- /.post -->
+                   
+
+                    <!-- Post -->
+                    <div class="post clearfix">
+                      <div class="user-block">
+                        <img class="img-circle img-bordered-sm" src="../../assets/img/user7-128x128.jpg" alt="User Image">
+                        <span class="username">
+                          <a href="#">Sarah Ross</a>
+                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
+                        </span>
+                        <span class="description">Sent you a message - 3 days ago</span>
+                      </div>
+                      <!-- /.user-block -->
+                      <p>
+                        Lorem ipsum represents a long-held tradition for designers,
+                        typographers and the like. Some people hate it and argue for
+                        its demise, but others ignore the hate as they create awesome
+                        tools to help create filler text for everyone from bacon lovers
+                        to Charlie Sheen fans.
+                      </p>
+
+                      <form class="form-horizontal">
+                        <div class="input-group input-group-sm mb-0">
+                          <input class="form-control form-control-sm" placeholder="Response">
+                          <div class="input-group-append">
+                            <button type="submit" class="btn btn-danger">Send</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <!-- /.post -->
+
+                    <!-- Post -->
+                    <div class="post">
+                      <div class="user-block">
+                        <img class="img-circle img-bordered-sm" src="../../assets/img/user6-128x128.jpg" alt="User Image">
+                        <span class="username">
+                          <a href="#">Adam Jones</a>
+                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
+                        </span>
+                        <span class="description">Posted 5 photos - 5 days ago</span>
+                      </div>
+                      <!-- /.user-block -->
+                      <div class="row mb-3">
+                        <div class="col-sm-6">
+                          <img class="img-fluid" src="../../assets/img/photo1.png" alt="Photo">
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-6">
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <img class="img-fluid mb-3" src="../../assets/img/photo2.png" alt="Photo">
+                              <img class="img-fluid" src="../../assets/img/photo3.jpg" alt="Photo">
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-sm-6">
+                              <img class="img-fluid mb-3" src="../../assets/img/photo4.jpg" alt="Photo">
+                              <img class="img-fluid" src="../../assets/img/photo1.png" alt="Photo">
+                            </div>
+                            <!-- /.col -->
+                          </div>
+                          <!-- /.row -->
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+
+                      <p>
+                        <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
+                        <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
+                        <span class="float-right">
+                          <a href="#" class="link-black text-sm">
+                            <i class="far fa-comments mr-1"></i> Comments (5)
+                          </a>
+                        </span>
+                      </p>
+
+                      <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
+                    </div>
+                    <!-- /.post -->
+                  </div>
+                  <!-- /.tab-pane -->
+
+                  <div class="tab-pane active" id="settings">
+                    <form class="form-horizontal">
+                      <div class="form-group row">
+                        <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-10">
+                          <input type="text" [(ngModel)]="model.name" name="name" class="form-control" id="inputName" placeholder="Name">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                          <input type="email" [(ngModel)]="model.email" name="email" class="form-control" id="inputEmail" placeholder="Email">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputContact" class="col-sm-2 col-form-label">Contact</label>
+                        <div class="col-sm-10">
+                          <input type="text" [(ngModel)]="model.contact" name="contact" class="form-control" id="inputContact" placeholder="Contact Number">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputHouseAddress" class="col-sm-2 col-form-label">House Address</label>
+                        <div class="col-sm-10">
+                          <input type="text"  [(ngModel)]="model.house_address" name="house_address" class="form-control" id="inputHouseAddress" placeholder="House Address">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="start_date_Input" class="col-sm-2 col-form-label">Start Date</label>
+                        <div class="input-group date col-sm-10" data-target-input="nearest">
+                          <input type="date" [(ngModel)]="model.startDate" value="startDate" class="form-control datetimepicker-input" 
+                          data-target="#startDate" name="startDate" id="start_date_Input" placeholder="Start Date"
+                          required>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
+                        <div class="col-sm-10">
+                          <input type="text" [(ngModel)]="model.username" name="username" class="form-control" id="inputUsername" placeholder="Username">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                        <div class="col-sm-10">
+                          <input type="text" [(ngModel)]="model.password" name="password" class="form-control" id="inputPassword" placeholder="Password">
+                        </div>
+                      </div>
+                      <div class="form-group row custom">
+                        <div class="offset-sm-2 col-sm-10">
+                          <div class="checkbox">
+                            <!-- <label>
+                              <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
+                            </label> -->
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="offset-sm-2 col-sm-10">
+                          <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                            <div class="btn-group mr-2" role="group" aria-label="First group">
+                              <button type="submit" class="btn btn-warning" data-toggle="modal" data-target="#modal-update">Update</button>
+                            </div>
+                            <div class="btn-group mr-2" role="group" aria-label="Second group">
+                              <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">Delete</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {{ model | json }}
+                    </form>
+                  </div>
+                  <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+              </div><!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+
+  <!-- Update Modal -->
+  <div class="modal fade" id="modal-update" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Warning!</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to update this item?</p>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" (click) = "put(model)" data-dismiss="modal" class="btn btn-primary">Confirm</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+  <!-- Delete Modal -->
+  <div class="modal fade" id="modal-delete" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Warning!</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete this item?</p>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" (click) = "delete(model)" data-dismiss="modal" class="btn btn-primary">Confirm</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+
+  <!-- Delete User Picture Modal -->
+  <div class="modal fade" id="modal-user-picture-delete" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Warning!</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete this picture?</p>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" (click) = "delete_picture()" data-dismiss="modal" class="btn btn-primary">Confirm</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+ 

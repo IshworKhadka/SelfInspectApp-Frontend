@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+.custom{
+    display: none;
+}
+
+.upload{
+    font-weight:bold;
+    color:#28a745;
+    margin-left: 15px;
+    line-height: 36px;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
