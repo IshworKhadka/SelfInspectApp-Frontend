@@ -42,6 +42,9 @@ export class HeaderComponent implements OnInit {
   redirectToInspectHouse(){
     this.router.navigateByUrl('inspection/inspect-house');
   }
+  redirectToInspectSubmit(){
+    this.router.navigateByUrl('inspection/inspect-submit');
+  }
 
   housesCount: any;
   getHousesCount(){

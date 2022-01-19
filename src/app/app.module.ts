@@ -24,6 +24,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { timeout } from 'rxjs';
 import { ScheduleAllComponent } from './inspection/schedule-all/schedule-all.component';
 import { InspectHouseComponent } from './inspection/inspect-house/inspect-house.component';
+import { InspectionSubmitComponent } from './inspection/inspection-submit/inspection-submit.component';
 
 const appRoutes: Routes = [
   {
@@ -53,7 +54,8 @@ const appRoutes: Routes = [
     path: 'inspection', component: HeaderComponent,
     children: [
       {path: 'add-inspection', component: AddScheduleComponent},
-      {path: 'inspect-house', component: InspectHouseComponent},
+      {path: 'inspect-house', component: InspectHouseComponent}, 
+      {path: 'inspect-submit', component: InspectionSubmitComponent}
     ]
   },
   {
@@ -72,7 +74,7 @@ const appRoutes: Routes = [
     HomeComponent, AboutComponent,
     HouseComponent, HouseAllComponent, HouseViewComponent,
     TenantComponent, TenantAllComponent, TenantViewComponent, 
-    AddScheduleComponent, ScheduleAllComponent, InspectHouseComponent
+    AddScheduleComponent, ScheduleAllComponent, InspectHouseComponent, InspectionSubmitComponent
     
   ],
   imports: [
