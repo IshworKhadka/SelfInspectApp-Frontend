@@ -25,6 +25,7 @@ import { timeout } from 'rxjs';
 import { ScheduleAllComponent } from './inspection/schedule-all/schedule-all.component';
 import { InspectHouseComponent } from './inspection/inspect-house/inspect-house.component';
 import { InspectionSubmitComponent } from './inspection/inspection-submit/inspection-submit.component';
+import { AddReminderComponent } from './add-reminder/add-reminder.component';
 
 const appRoutes: Routes = [
   {
@@ -74,7 +75,7 @@ const appRoutes: Routes = [
     HomeComponent, AboutComponent,
     HouseComponent, HouseAllComponent, HouseViewComponent,
     TenantComponent, TenantAllComponent, TenantViewComponent, 
-    AddScheduleComponent, ScheduleAllComponent, InspectHouseComponent, InspectionSubmitComponent
+    AddScheduleComponent, ScheduleAllComponent, InspectHouseComponent, InspectionSubmitComponent, AddReminderComponent
     
   ],
   imports: [

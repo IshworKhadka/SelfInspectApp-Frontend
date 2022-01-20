@@ -26,12 +26,12 @@
             <div class="card card-primary card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle" src="../../../assets/img/ishwor.PNG" alt="User profile picture">
+                  <img class="profile-user-img img-fluid img-circle" src="../../../assets/img/user.png" alt="User profile picture">
                 </div>
 
-                <h3 class="profile-username text-center">Ishwor Khadka</h3>
+                <h3 class="profile-username text-center">{{ model.name }}</h3>
 
-                <div class="btn-toolbar" style=" margin: auto;" role="toolbar" aria-label="Toolbar with button groups">
+                <!-- <div class="btn-toolbar" style=" margin: auto;" role="toolbar" aria-label="Toolbar with button groups">
                   <div class="btn-group" role="group" aria-label="First group">
                     <div>
                       <input type="file" #file placeholder="Choose file" style="margin-bottom:15px; display: none;">
@@ -50,7 +50,7 @@
                   <div class="btn-group mr-2" role="group" aria-label="Second group">
                     <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#modal-user-picture-delete">Delete</button>
                   </div>
-                </div>
+                </div> -->
                 
               </div>
               <!-- /.card-body -->
@@ -67,18 +67,18 @@
 
                 <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
 
-                <p class="text-muted">Edwardstown, South Australia</p>
+                <p class="text-muted">address</p>
 
                 <hr>
 
                 <strong><i class="fas fa-envelope-square mr-1"></i> Email</strong>
 
-                <p class="text-muted">{{model.email}}</p>
+                <p class="text-muted">{{ model.email }}</p>
 
                 <hr>
                 <strong><i class="fas fa-phone mr-1"></i> Contact</strong>
 
-                <p class="text-muted">{{model.contact}}</p>
+                <p class="text-muted">{{ model.contact }}</p>
 
                 <hr>
                 <strong><i class="fas fa-calendar-check mr-1"></i> Start Date</strong>
