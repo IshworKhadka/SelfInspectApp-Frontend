@@ -29,7 +29,7 @@
                   <img class="profile-user-img img-fluid img-circle" src="../../../assets/img/ishwor.PNG" alt="User profile picture">
                 </div>
 
-                <h3 class="profile-username text-center">Ishwor Khadka</h3>
+                <h3 class="profile-username text-center">{{ model.name }}</h3>
 
                 <div class="btn-toolbar" style=" margin: auto;" role="toolbar" aria-label="Toolbar with button groups">
                   <div class="btn-group" role="group" aria-label="First group">
@@ -73,12 +73,12 @@
 
                 <strong><i class="fas fa-envelope-square mr-1"></i> Email</strong>
 
-                <p class="text-muted">{{model.email}}</p>
+                <p class="text-muted">{{ model.email }}</p>
 
                 <hr>
                 <strong><i class="fas fa-phone mr-1"></i> Contact</strong>
 
-                <p class="text-muted">{{model.contact}}</p>
+                <p class="text-muted">{{ model.contact }}</p>
 
                 <hr>
                 <strong><i class="fas fa-calendar-check mr-1"></i> Start Date</strong>
