@@ -6,6 +6,7 @@ import { GlobalConstants } from "src/app/global-constants";
 import { TenantModel } from "src/app/models/tenant";
 
 import { ActivityModel } from '../../models/activity';
+import { HouseModel } from "src/app/models/house";
 
 
 @Component({
@@ -33,6 +34,7 @@ export class TenantViewComponent {
 
 
     model: any
+    HouseArray: HouseModel[];
     a_model: ActivityModel
 
     activity_list: ActivityModel[] = 
@@ -43,13 +45,26 @@ export class TenantViewComponent {
     ]
 
     ngOnInit(){
+
+        this.api.GetHouseDetails().subscribe((res: any) => {
+            this.HouseArray = res;
+          });
         var id = this.route.snapshot.paramMap.get('id');
 
         if(id != null){
             this.api.viewTenant(parseInt(id)).subscribe(res => {
                 this.model = res;
+
+                this.HouseArray.forEach(element => {
+                    if(element.houseId == this.model.houseId){
+                        this.model.house_address = element.house_number + " " + element.street + element.suburb;
+                    }
+                });
+                debugger
               })
         }
+
+
     }
 
     put(model: TenantModel){
