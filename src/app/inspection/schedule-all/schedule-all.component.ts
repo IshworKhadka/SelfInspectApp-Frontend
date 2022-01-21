@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apiservice } from 'src/app/api.service';
+import { HouseModel } from 'src/app/models/house';
 import { InspectionScheduleModel } from 'src/app/models/inspection-schedule';
+import { InspectionSubmitModel } from 'src/app/models/inspection-submit';
+import { TenantModel } from 'src/app/models/tenant';
 
 @Component({
   selector: 'app-schedule-all',
@@ -15,8 +18,9 @@ export class ScheduleAllComponent implements OnInit {
   inspection_schedules: any
 
   ngOnInit(): void {
-    this.api.GetInspectionDetails().subscribe(res => {
+    this.api.GetInspectionDetails().subscribe((res: any) => {
       this.inspection_schedules = res;
+      console.log(this.inspection_schedules)
     });
   }
 

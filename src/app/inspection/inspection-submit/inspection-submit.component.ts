@@ -34,27 +34,25 @@ export class InspectionSubmitComponent implements OnInit {
     Array.from(filesTeUpload).map((file, index) => {
       return formData.append('file' + index, file, file.name);
     });
-    console.log(formData)
-
    
 
     this.http
-      .post(GlobalConstants.BaseURI + '/api/inspectionsubmit', formData, {
+      .post(GlobalConstants.BaseURI + '/api/inspectionsubmit/upload', formData, {
         reportProgress: true,
         observe: 'events',
       })
       .subscribe((event) => {
+        console.log(typeof event)
         if (event.type === HttpEventType.UploadProgress) {
           this.progress = Math.round(
             (100 * event.loaded) / (event.total as number)
           );
+          debugger
         } else if (event.type === HttpEventType.Response) {
           this.message = 'Upload Successful';
           this.onUploadFinished.emit(event.body);
         }
       });
-
-      debugger
   };
 
 
