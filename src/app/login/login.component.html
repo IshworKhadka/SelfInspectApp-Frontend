@@ -8,7 +8,7 @@
       </div>
       <!-- /.card-header -->
       <!-- form start -->
-      <form role="form" [formGroup]="form" (ngSubmit)="auth.register(form.value)">
+      <form role="form" [formGroup]="form" id="quickForm"> <!-- (ngSubmit)="auth.register(form.value)" -->
         <div class="card-body">
           <div class="form-group">
             <label for="InputEmail">Email</label>
@@ -21,7 +21,7 @@
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
-          <button type="submit" [disabled]="!form.valid" class="btn btn-primary">Submit</button>
+          <button type="submit" [disabled]="!form.valid" (click)="login(model)" class="btn btn-primary">Submit</button>
         </div>
       </form>
     </div>
@@ -29,6 +29,49 @@
   </div>
 </div>
 
+<script>
+  $(function () {
+    $.validator.setDefaults({
+      submitHandler: function () {
+        alert( "Form successful submitted!" );
+      }
+    });
+    $('#quickForm').validate({
+      rules: {
+        email: {
+          required: true,
+          email: true,
+        },
+        password: {
+          required: true,
+          minlength: 4
+        },
+      },
+      messages: {
+        email: {
+          required: "Please enter a email address",
+          email: "Please enter a vaild email address"
+        },
+        password: {
+          required: "Please provide a password",
+          minlength: "Your password must be at least 5 characters long"
+        },
+      },
+      errorElement: 'span',
+      errorPlacement: function (error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+      },
+      highlight: function (element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      }
+    });
+  });
+  </script>
 
-<!-- (click)="login(model)" -->
+
+
 

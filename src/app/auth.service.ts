@@ -14,6 +14,8 @@ export class Authservice {
  
   register(credentials: any) {
     this.http.post<any>(GlobalConstants.BaseURI + '/api/account', credentials).subscribe(res => {
+        console.log(res);
+
         localStorage.setItem('token', res)
     });
   }
