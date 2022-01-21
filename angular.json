@@ -44,6 +44,7 @@
             "scripts": [
               "node_modules/admin-lte/plugins/jquery/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.js",
+              "node_modules/admin-lte/plugins/jquery-validation/jquery.validate.min.js",
 
               "node_modules/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js",
               "node_modules/admin-lte/plugins/moment/moment.min.js",

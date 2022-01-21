@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 import { Apiservice } from './api.service';
+import { Authservice } from './auth.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -26,6 +27,7 @@ import { ScheduleAllComponent } from './inspection/schedule-all/schedule-all.com
 import { InspectHouseComponent } from './inspection/inspect-house/inspect-house.component';
 import { InspectionSubmitComponent } from './inspection/inspection-submit/inspection-submit.component';
 import { AddReminderComponent } from './add-reminder/add-reminder.component';
+import { RegisterComponent } from './register/register.component';
 
 const appRoutes: Routes = [
   {
@@ -75,12 +77,12 @@ const appRoutes: Routes = [
     HomeComponent, AboutComponent,
     HouseComponent, HouseAllComponent, HouseViewComponent,
     TenantComponent, TenantAllComponent, TenantViewComponent, 
-    AddScheduleComponent, ScheduleAllComponent, InspectHouseComponent, InspectionSubmitComponent, AddReminderComponent
+    AddScheduleComponent, ScheduleAllComponent, InspectHouseComponent, InspectionSubmitComponent, AddReminderComponent, RegisterComponent
     
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule, 
-    HttpClientModule, FormsModule, 
+    HttpClientModule, FormsModule, ReactiveFormsModule,
     AppRoutingModule, RouterModule.forRoot(appRoutes),
     ToastrModule.forRoot({
       timeOut: 2000,
@@ -89,7 +91,7 @@ const appRoutes: Routes = [
       preventDuplicates: true
     })
   ],
-  providers: [Apiservice],
+  providers: [Apiservice, Authservice],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

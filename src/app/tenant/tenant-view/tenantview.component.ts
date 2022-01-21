@@ -60,7 +60,6 @@ export class TenantViewComponent {
                         this.model.house_address = element.house_number + " " + element.street + element.suburb;
                     }
                 });
-                debugger
               })
         }
 
