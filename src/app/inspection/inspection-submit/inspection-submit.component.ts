@@ -36,8 +36,10 @@ export class InspectionSubmitComponent implements OnInit {
     });
     console.log(formData)
 
+   
+
     this.http
-      .post(GlobalConstants.BaseURI + '/api/house', formData, {
+      .post(GlobalConstants.BaseURI + '/api/inspectionsubmit', formData, {
         reportProgress: true,
         observe: 'events',
       })
@@ -51,6 +53,8 @@ export class InspectionSubmitComponent implements OnInit {
           this.onUploadFinished.emit(event.body);
         }
       });
+
+      debugger
   };
 
 
