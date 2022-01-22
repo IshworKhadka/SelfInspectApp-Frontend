@@ -39,9 +39,12 @@ export class TenantViewComponent {
 
     activity_list: ActivityModel[] = 
     [
-        new ActivityModel(1, "Scheduled Inspection", "Sakar Maharjan", 2, this.dateObj,"Scheduled inspection on" + this.dateObj),
-        new ActivityModel(2, "Uploaded Image", "Dipendra Poudel", 2, this.dateObj,"Uploaded images for inspection"),
-        new ActivityModel(3, "Inspection done", "Dinesh Kumar Pun Magar", 2, this.dateObj,"Ownder has given feedback")
+        new ActivityModel(),
+        new ActivityModel(),
+        new ActivityModel()
+        // new ActivityModel(1, "Scheduled Inspection", "Sakar Maharjan", 2, this.dateObj,"Scheduled inspection on" + this.dateObj),
+        // new ActivityModel(2, "Uploaded Image", "Dipendra Poudel", 2, this.dateObj,"Uploaded images for inspection"),
+        // new ActivityModel(3, "Inspection done", "Dinesh Kumar Pun Magar", 2, this.dateObj,"Ownder has given feedback")
     ]
 
     ngOnInit(){

@@ -64,6 +64,10 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('tenant/view-list');
   }
 
+  redirectToViewAllHouse(){
+    this.router.navigateByUrl('house/view-list');
+  }
+
   
 
 

@@ -29,6 +29,7 @@ import { InspectHouseComponent } from './inspection/inspect-house/inspect-house.
 import { InspectionSubmitComponent } from './inspection/inspection-submit/inspection-submit.component';
 import { AddReminderComponent } from './add-reminder/add-reminder.component';
 import { RegisterComponent } from './register/register.component';
+import { HouseListComponent } from './house/house-list/house-list.component';
 
 
 const appRoutes: Routes = [
@@ -44,6 +45,7 @@ const appRoutes: Routes = [
     children: [
       {path: 'add-house', component: HouseComponent},
       {path: 'view-all', component: AboutComponent},
+      {path: 'view-list', component: HouseListComponent},
       {path: 'view-house/:id', component: HouseViewComponent},
     ]
   },
@@ -78,7 +80,7 @@ const appRoutes: Routes = [
     LoginComponent,
     HeaderComponent,
     HomeComponent, AboutComponent,
-    HouseComponent, HouseAllComponent, HouseViewComponent,
+    HouseComponent, HouseAllComponent, HouseViewComponent, HouseListComponent,
     TenantComponent, TenantAllComponent, TenantViewComponent, TenantListComponent,
     AddScheduleComponent, ScheduleAllComponent, InspectHouseComponent, InspectionSubmitComponent, AddReminderComponent, RegisterComponent
     

@@ -109,7 +109,7 @@
                       <!-- timeline time label -->
                       <div class="time-label">
                         <span class="bg-danger">
-                         {{days[a_model.activity_date.getDay()] + ", " + a_model.activity_date.getDate() + "/" + months[a_model.activity_date.getMonth()] + "/" + a_model.activity_date.getFullYear()}}
+                         {{days[a_model.activityDate.getDay()] + ", " + a_model.activityDate.getDate() + "/" + months[a_model.activityDate.getMonth()] + "/" + a_model.activityDate.getFullYear()}}
                         </span>
                       </div>
                       <!-- /.timeline-label -->
@@ -119,12 +119,12 @@
 
                         <div class="timeline-item">
                           <!-- <span class="time"><i class="far fa-clock"></i> {{a_model.activity_date.getHours() + ':' + a_model.activity_date.getMinutes()}}</span> -->
-                          <span class="time"><i class="far fa-clock"></i> {{a_model.activity_date | date: "HH:mm"}}</span>
+                          <span class="time"><i class="far fa-clock"></i> {{a_model.activityDate | date: "HH:mm"}}</span>
 
-                          <h3 class="timeline-header">{{a_model.activity_name}}</h3>
+                          <h3 class="timeline-header">{{a_model.activityDate}}</h3>
 
                           <div class="timeline-body">
-                            {{a_model.activity_description}}
+                            {{a_model.activityDate}}
                           </div>
                         </div>
                       </div>
@@ -143,14 +143,14 @@
                       <div class="user-block">
                         <img class="img-circle img-bordered-sm" src="../../assets/img/user1-128x128.jpg" alt="user image">
                         <span class="username">
-                          <a href="#">{{a_model.activity_user_name}}</a>
+                          <a href="#">{{a_model.activityUser}}</a>
                           <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
                         </span>
-                        <span class="description">{{days[a_model.activity_date.getDay()] + ", " + a_model.activity_date.getDate() + "/" + months[a_model.activity_date.getMonth()] + "/" + a_model.activity_date.getFullYear() + " " + a_model.activity_date | date: "HH:mm" }}</span>
+                        <span class="description">{{days[a_model.activityDate.getDay()] + ", " + a_model.activityDate.getDate() + "/" + months[a_model.activityDate.getMonth()] + "/" + a_model.activityDate.getFullYear() + " " + a_model.activityDate | date: "HH:mm" }}</span>
                       </div>
                       <!-- /.user-block -->
                       <p>
-                        {{a_model.activity_description}}
+                        {{a_model.activityDescription}}
                       </p>
 
                       <!-- <p>

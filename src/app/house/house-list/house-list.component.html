@@ -1,0 +1,79 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">House List</h1>
+          </div>
+          <!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">
+                House List
+              </li>
+            </ol>
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+  
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">House List</h3>
+              <div class="card-tools">
+                <div class="input-group input-group-sm" style="width: 150px">
+                </div>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>House Size</th>
+                      <th>House Type</th>
+                      <th>Address</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      class="clickLink"
+                      *ngFor="let model of houses"
+                    >
+                      <td>{{ model.houseId }}</td>
+                      <td>{{ model.house_size }}</td>
+                      <td>{{ model.house_type }}</td>
+                      <td>
+                        {{ model.house_number }} {{ model.street }}, {{ model.suburb }},
+                        {{ model.state }} {{ model.postal_code }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+          </div>
+      </div>
+      <!--/. container-fluid -->
+    </section>
+    <!-- /.content -->
+  
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+  </div>
+  <!-- ./wrapper -->
+
