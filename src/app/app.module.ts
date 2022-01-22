@@ -20,6 +20,7 @@ import { HouseViewComponent } from './house/house-view/houseview.component';
 import { TenantComponent } from './tenant/tenant-add/tenant.component';
 import { TenantAllComponent } from './tenant/tenant-all/tenantall.component';
 import { TenantViewComponent } from './tenant/tenant-view/tenantview.component';
+import { TenantListComponent } from './tenant/tenant-list/tenant-list.component';
 import { AddScheduleComponent } from './inspection/add-schedule/add-schedule.component';
 import { ToastrModule } from 'ngx-toastr';
 import { timeout } from 'rxjs';
@@ -28,6 +29,7 @@ import { InspectHouseComponent } from './inspection/inspect-house/inspect-house.
 import { InspectionSubmitComponent } from './inspection/inspection-submit/inspection-submit.component';
 import { AddReminderComponent } from './add-reminder/add-reminder.component';
 import { RegisterComponent } from './register/register.component';
+
 
 const appRoutes: Routes = [
   {
@@ -50,6 +52,7 @@ const appRoutes: Routes = [
     children: [
       {path: 'add-tenant', component: TenantComponent},
       {path: 'view-all', component: TenantAllComponent},
+      {path: 'view-list', component: TenantListComponent},
       {path: 'view-tenant/:id', component: TenantViewComponent},
     ]
   },
@@ -76,7 +79,7 @@ const appRoutes: Routes = [
     HeaderComponent,
     HomeComponent, AboutComponent,
     HouseComponent, HouseAllComponent, HouseViewComponent,
-    TenantComponent, TenantAllComponent, TenantViewComponent, 
+    TenantComponent, TenantAllComponent, TenantViewComponent, TenantListComponent,
     AddScheduleComponent, ScheduleAllComponent, InspectHouseComponent, InspectionSubmitComponent, AddReminderComponent, RegisterComponent
     
   ],

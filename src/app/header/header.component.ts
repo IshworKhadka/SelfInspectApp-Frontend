@@ -61,7 +61,7 @@ export class HeaderComponent implements OnInit {
   }
 
   redirectToViewAllTenant(){
-    this.router.navigateByUrl('tenant/view-all');
+    this.router.navigateByUrl('tenant/view-list');
   }
 
   
