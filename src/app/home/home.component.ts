@@ -25,7 +25,6 @@ export class HomeComponent implements OnInit {
   getHousesCount(){
     this.api.GetHouseDetails().subscribe((res: any) => {
       this.housesCount = res.length;
-      console.log(this.housesCount);
     })
   }
   tenantsCount: any;

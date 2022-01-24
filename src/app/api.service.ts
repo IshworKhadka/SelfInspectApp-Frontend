@@ -11,7 +11,12 @@ import { InspectionScheduleModel } from './models/inspection-schedule';
 export class Apiservice {
   constructor(private http: HttpClient, private router: Router) {}
 
-  //service for Login
+  
+
+  //Service for static data
+  GetHouseSectionDetails() {
+    return this.http.get(GlobalConstants.BaseURI + '/api/values');
+  }
 
   //Services for Houses
   GetHouseDetails() {

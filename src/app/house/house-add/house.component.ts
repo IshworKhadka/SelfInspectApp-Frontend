@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { GlobalConstants } from 'src/app/global-constants';
 import { Apiservice } from '../../api.service';
 import { HouseModel } from '../../models/house';
+import { HouseAllComponent } from '../house-all/houseall.component';
 
 @Component({
   selector: 'app-house',
@@ -42,7 +43,8 @@ export class HouseComponent {
     this.api.putHouseDetails(model)
     .subscribe((res: any) => {
       this.toastr.success('House Updated Successfully', 'SUCCESS');
-    });
+    }
+    );
     
   }
 

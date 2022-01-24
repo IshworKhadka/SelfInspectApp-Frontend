@@ -2,6 +2,7 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apiservice } from '../api.service';
+import { Authservice } from '../auth.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,7 @@ import { Apiservice } from '../api.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor( public router : Router, public api : Apiservice) { }
+  constructor( public router : Router, public api : Apiservice, private auth: Authservice) { }
 
   ngOnInit(): void {
     this.getHousesCount();
@@ -25,8 +26,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('dashboard/about');
   }
 
-  logMeOut(){
-    this.router.navigateByUrl('login');
+  logOut(){
+    this.auth.logout();
   }
 
   redirectToAddHouse(){
