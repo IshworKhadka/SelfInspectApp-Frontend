@@ -8,7 +8,7 @@
       </div>
       <!-- /.card-header -->
       <!-- form start -->
-      <form role="form" [formGroup]="form" id="quickForm"> <!-- (ngSubmit)="auth.register(form.value)" -->
+      <form role="form" [formGroup]="form" id="quickForm" (ngSubmit)="auth.login(form.value)" > <!-- (ngSubmit)="auth.register(form.value)" -->
         <div class="card-body">
           <div class="form-group">
             <label for="InputEmail">Email</label>
@@ -21,7 +21,7 @@
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
-          <button type="submit" [disabled]="!form.valid" (click)="login(model)" class="btn btn-primary">Submit</button>
+          <button type="submit"  class="btn btn-primary">Submit</button>  <!-- [disabled]="!form.valid" (click)="login(model)" -->
         </div>
       </form>
     </div>

@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 import { Apiservice } from './api.service';
 import { Authservice } from './auth.service';
+import { AuthInterceptor } from './auth.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -70,6 +71,9 @@ const appRoutes: Routes = [
     path: 'login', component:  LoginComponent
   },
   {
+    path: 'register', component: RegisterComponent
+  },
+  {
     path: '**', redirectTo: '/login', pathMatch: 'full'
   }
 ];
@@ -77,12 +81,12 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent, 
-    LoginComponent,
+    LoginComponent, RegisterComponent,
     HeaderComponent,
     HomeComponent, AboutComponent,
     HouseComponent, HouseAllComponent, HouseViewComponent, HouseListComponent,
     TenantComponent, TenantAllComponent, TenantViewComponent, TenantListComponent,
-    AddScheduleComponent, ScheduleAllComponent, InspectHouseComponent, InspectionSubmitComponent, AddReminderComponent, RegisterComponent
+    AddScheduleComponent, ScheduleAllComponent, InspectHouseComponent, InspectionSubmitComponent, AddReminderComponent
     
   ],
   imports: [
@@ -96,7 +100,11 @@ const appRoutes: Routes = [
       preventDuplicates: true
     })
   ],
-  providers: [Apiservice, Authservice],
+  providers: [Apiservice, Authservice, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

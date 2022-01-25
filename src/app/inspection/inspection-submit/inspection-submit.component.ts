@@ -1,20 +1,30 @@
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Apiservice } from 'src/app/api.service';
 import { GlobalConstants } from 'src/app/global-constants';
 import { InspectionScheduleModel } from 'src/app/models/inspection-schedule';
+import { HouseSectionModel } from 'src/app/models/static-models/house-section';
 
 @Component({
   selector: 'app-inspection-submit',
   templateUrl: './inspection-submit.component.html',
   styleUrls: ['./../add-schedule.component.css']
 })
-export class InspectionSubmitComponent implements OnInit {
 
-  constructor(private http: HttpClient, private route: ActivatedRoute,  
-    public router : Router) { }
+export class InspectionSubmitComponent {
+  
+  constructor(private http: HttpClient, private route: ActivatedRoute,  public router : Router, public api: Apiservice) 
+  { 
+  }
+
+  housesections: any
 
   ngOnInit(): void {
+    this.api.GetHouseSectionDetails().subscribe((res: any) => {
+      this.housesections = res;
+    })
   }
 
   progress: number
@@ -40,20 +50,21 @@ export class InspectionSubmitComponent implements OnInit {
       .post(GlobalConstants.BaseURI + '/api/inspectionsubmit/upload', formData, {
         reportProgress: true,
         observe: 'events',
+        responseType: 'json'
       })
       .subscribe((event) => {
-        console.log(typeof event)
         if (event.type === HttpEventType.UploadProgress) {
           this.progress = Math.round(
             (100 * event.loaded) / (event.total as number)
           );
-          debugger
         } else if (event.type === HttpEventType.Response) {
           this.message = 'Upload Successful';
           this.onUploadFinished.emit(event.body);
         }
       });
   };
+
+  
 
 
   put(model: InspectionScheduleModel){
