@@ -48,8 +48,7 @@
                 ><i class="fas fa-map-marker-alt mr-1"></i> Location</strong
               >
 
-              <p class="text-muted"> {{ model.house_number }}  {{ model.street }} , {{ model.state }} , {{ model.postal_code}}</p>
-
+              <p class="text-muted"> {{ model?.house_number }}  {{ model?.street }} , {{ model?.state }} , {{ model?.postal_code}}</p>
               <hr />
 
               <!-- <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
@@ -288,7 +287,6 @@
                         type="file"
                         #file
                         placeholder="Choose file"
-                        (change)="uploadFile(file.files)"
                         multiple
                         style="margin-bottom: 15px"
                       />
@@ -314,31 +312,52 @@
 
                 <div class="tab-pane" id="kitchen">
                   <div class="row" style="margin-bottom: 15px">
-                    <div class="col-md-3">
-                      <input
-                        type="file"
-                        #file
-                        placeholder="Choose file"
-                        (change)="uploadFile(file.files)"
-                        multiple
-                        style="margin-bottom: 15px"
-                      />
-                      <button
-                        type="button"
-                        class="btn btn-success"
-                        (click)="file.click()"
-                      >
-                        Upload File
-                      </button>
+                    <input
+                      type="file"
+                      #file
+                      placeholder="Choose file"
+                      accept="image/*"
+                      (change)="onFileChange($event)"
+                      multiple
+                      style="margin-bottom: 15px"
+                    />
+                    
+                    <div class="col-md-12">
+                      <div class="img-main-container">
+                        <div *ngFor="let url of previews; let i = index">
+                          <div class="img-container">
+                            <img [src]="url" class="image" height="200"> 
+                            <span class="img-button">
+                              <button class="btn btn-danger" (click)="removeImage(i)"><i class="fa fa-trash-alt"></i></button>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-md-4">
-                      <span class="upload" *ngIf="progress > 0">
-                        {{ progress }}%
-                      </span>
-                      <span class="upload" *ngIf="message">
-                        {{ message }}
-                      </span>
-                    </div>
+                    
+                    <button
+                      type="button"
+                      class="btn btn-success"
+                      [disabled]="!selectedFiles"
+                      (click)="uploadFiles()"
+                    >
+                      Upload File
+                    </button>
+                  </div>
+                  
+                  <div class="col-md-4">
+                    <span class="upload" *ngIf="progress > 0">
+                      {{ progress }}%
+                    </span>
+                    <span class="upload" *ngIf="message">
+                      {{ message }}
+                    </span>
+                  </div>
+                  
+                  <div *ngIf="messages.length" class="alert alert-secondary my-3" role="alert">
+                    <ul *ngFor="let msg of messages; let i = index">
+                      <li>{{ msg }}</li>
+                    </ul>
                   </div>
                 </div>
                 <!-- /.tab-pane -->
@@ -525,7 +544,6 @@
                         </div>
                       </div>
                     </div>
-                    {{ model | json }}
                   </form>
                 </div>
                 <!-- /.tab-pane -->
