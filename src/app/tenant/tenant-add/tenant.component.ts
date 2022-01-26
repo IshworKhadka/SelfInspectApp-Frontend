@@ -20,7 +20,7 @@ export class TenantComponent implements OnInit {
 
   housesCount: any;
 
-  model = new TenantModel(0, '', '', '', new Date(), '', '', 0, '');
+  model = new TenantModel();
 
   address_concatenated: string;
 
@@ -32,21 +32,24 @@ export class TenantComponent implements OnInit {
       this.HouseArray = res;
     });
   }
-
+  //Test using postTenantDetails
   post(model: TenantModel) {
-    this.api.postTenantDetails(model).subscribe((res) => {
+    this.api.postUserDetails(model).subscribe((res) => {
       // this.dialModRef.close({
       //   reloadGrid: true
       // })
       this.resetModel();
     });
   }
+
+  
   put(model: TenantModel) {
     model = model;
-    this.api.putTenantDetails(model);
+    debugger
+    this.api.putUserDetails(model);
   }
 
   resetModel() {
-    this.model = new TenantModel(0, '', '', '', new Date(), '', '', 0, '');
+    this.model = new TenantModel();
   }
 }

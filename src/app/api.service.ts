@@ -11,7 +11,36 @@ import { InspectionScheduleModel } from './models/inspection-schedule';
 export class Apiservice {
   constructor(private http: HttpClient, private router: Router) {}
 
+  //Create user
+  postUserDetails(model: TenantModel): Observable<any> {
+    debugger
+    return this.http.post(GlobalConstants.BaseURI + '/api/account/register', model);
+  }
+  //Get users
+  GetUserDetails() {
+    return this.http.get(GlobalConstants.BaseURI + '/api/account');
+  }
   
+  //View User
+  viewUser(id: string) {
+    // this.selectedTenant.next(model);
+    return this.http.get(GlobalConstants.BaseURI + `/api/account/${id}`);
+  }
+  //Delete User
+  deleteUser(model: TenantModel) {
+    return this.http.delete(
+      GlobalConstants.BaseURI + `/api/account/${model.userId}`
+    );
+  }
+  //Update User
+  putUserDetails(model: TenantModel) {
+    debugger;
+    this.http
+      .put(GlobalConstants.BaseURI + `/api/account/${model.userId}`, model)
+      .subscribe((res) => {
+        console.log(res);
+      });
+  }
 
   //Service for static data
   GetHouseSectionDetails() {
@@ -28,6 +57,7 @@ export class Apiservice {
       
   }
   putHouseDetails(model: HouseModel) {
+    console.log(model);
      return this.http
       .put(GlobalConstants.BaseURI + `/api/house/${model.houseId}`, model);
       // .subscribe((res) => {
@@ -70,7 +100,7 @@ export class Apiservice {
 
   putTenantDetails(model: TenantModel) {
     this.http
-      .put(GlobalConstants.BaseURI + `/api/tenant/${model.tenantId}`, model)
+      .put(GlobalConstants.BaseURI + `/api/tenant/${model.userId}`, model)
       .subscribe((res) => {
         console.log(res);
       });
@@ -83,7 +113,7 @@ export class Apiservice {
 
   deleteTenant(model: TenantModel) {
     return this.http.delete(
-      GlobalConstants.BaseURI + `/api/tenant/${model.tenantId}`
+      GlobalConstants.BaseURI + `/api/tenant/${model.userId}`
     );
   }
 
