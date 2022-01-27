@@ -83,6 +83,7 @@ export class KitchenComponent implements OnInit {
       let fileToUpload = <File>file;
       const formData = new FormData();
       formData.append('file', fileToUpload, fileToUpload.name);
+      formData.append('houseSectionId', '1');
 
       this.http.post(GlobalConstants.BaseURI + '/api/house', formData, {reportProgress: true, observe: 'events'})
       .subscribe({

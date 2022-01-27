@@ -80,7 +80,12 @@ export class BedroomComponent implements OnInit {
       this.progressInfos[idx] = { value: 0, fileName: file.name };
     }
     if (file) {
-      this.http.post(GlobalConstants.BaseURI + '/api/house/Upload', file).subscribe({
+      let fileToUpload = <File>file;
+      const formData = new FormData();
+      formData.append('file', fileToUpload, fileToUpload.name);
+      formData.append('houseSectionId', '2');
+
+      this.http.post(GlobalConstants.BaseURI + '/api/house', formData).subscribe({
         next: (event: any) => {
           if (event.type === HttpEventType.UploadProgress) {
             this.progressInfos[idx].value = Math.round(100 * event.loaded / event.total);
