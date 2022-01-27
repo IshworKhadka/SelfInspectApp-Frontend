@@ -31,6 +31,12 @@ import { InspectionSubmitComponent } from './inspection/inspection-submit/inspec
 import { AddReminderComponent } from './add-reminder/add-reminder.component';
 import { RegisterComponent } from './register/register.component';
 import { HouseListComponent } from './house/house-list/house-list.component';
+import { BedroomComponent } from './house/house-view/views/bedroom/bedroom.component';
+import { KitchenComponent } from './house/house-view/views/kitchen/kitchen.component';
+import { HallComponent } from './house/house-view/views/hall/hall.component';
+import { BathroomComponent } from './house/house-view/views/bathroom/bathroom.component';
+import { HouseAboutComponent } from './house/house-view/views/house-about/house-about.component';
+import { HouseDetailsComponent } from './house/house-view/views/house-details/house-details.component';
 
 
 const appRoutes: Routes = [
@@ -47,7 +53,16 @@ const appRoutes: Routes = [
       {path: 'add-house', component: HouseComponent},
       {path: 'view-all', component: AboutComponent},
       {path: 'view-list', component: HouseListComponent},
-      {path: 'view-house/:id', component: HouseViewComponent},
+      {path: 'view-house/:id', component: HouseViewComponent,
+        children: [
+          {path: "", redirectTo: "house-details", pathMatch: "full"},
+          {path: "kitchen", component: KitchenComponent},
+          {path: "bathroom", component: BathroomComponent},
+          {path: "bedroom", component: BedroomComponent},
+          {path: "hall", component: HallComponent},
+          {path: "house-details", component: HouseDetailsComponent}
+        ]
+      },
     ]
   },
   {
@@ -86,7 +101,9 @@ const appRoutes: Routes = [
     HomeComponent, AboutComponent,
     HouseComponent, HouseAllComponent, HouseViewComponent, HouseListComponent,
     TenantComponent, TenantAllComponent, TenantViewComponent, TenantListComponent,
-    AddScheduleComponent, ScheduleAllComponent, InspectHouseComponent, InspectionSubmitComponent, AddReminderComponent
+    AddScheduleComponent, ScheduleAllComponent, InspectHouseComponent, InspectionSubmitComponent,
+     AddReminderComponent, BedroomComponent, KitchenComponent, HallComponent, BathroomComponent, 
+    HouseAboutComponent, HouseDetailsComponent
     
   ],
   imports: [
