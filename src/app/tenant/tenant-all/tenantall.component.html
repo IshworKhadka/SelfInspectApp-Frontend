@@ -47,7 +47,7 @@
             <div class="btn-group btn-group-sm">
               <a
                 href="javascript:void(0);"
-                (click)="api.viewTenant(model.tenantId)"
+                (click)="api.viewHouse(model.tenantId)"
                 [routerLink]="['/tenant/view-tenant', model.tenantId]"
                 class="btn btn-primary"
                 ><i class="fas fa-eye"></i
@@ -65,7 +65,7 @@
                 class="btn btn-danger"
                 ><i class="fas fa-trash"></i
               ></a>
-              <button class="btn btn-success">Invite</button>
+              <button class="btn btn-success" (click)="inviteUser(model.email)">Invite</button>
             </div>
           </td>
           <td>

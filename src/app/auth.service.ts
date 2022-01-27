@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { GlobalConstants } from './global-constants';
 import { ToastrService } from 'ngx-toastr';
+import { TenantModel } from './models/tenant';
 
 @Injectable()
 export class Authservice {
@@ -16,14 +17,19 @@ export class Authservice {
     });
   }
 
+  inviteUser(email: any){
+    debugger
+    return this.http.post<any>(GlobalConstants.BaseURI + '/api/account/invite', email);
+  }
+
   login(credentials: any) {
-    this.http.post<any>(GlobalConstants.BaseURI + '/api/account/login', credentials).subscribe(res => {
+    this.http.post(GlobalConstants.BaseURI + '/api/account/login', credentials).subscribe((res : any) => {
       this.authenticate(res);
     });
   }
 
   authenticate(res: any){
-    localStorage.setItem('token', res)
+    localStorage.setItem('token', res.token)
     this.router.navigateByUrl('dashboard/home');
     this.toastr.success('Welcome!', 'SUCCESS');
   }
