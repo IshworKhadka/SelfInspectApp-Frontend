@@ -17,14 +17,14 @@ export class Authservice {
   }
 
   login(credentials: any) {
-    debugger
-    this.http.post<any>(GlobalConstants.BaseURI + '/api/account/login', credentials).subscribe(res => {
+    this.http.post<any>(GlobalConstants.BaseURI + '/api/account/login', credentials).subscribe((res : any) => {
       this.authenticate(res);
     });
   }
 
   authenticate(res: any){
-    localStorage.setItem('token', res)
+    debugger
+    localStorage.setItem('token', res.token)
     this.router.navigateByUrl('dashboard/home');
     this.toastr.success('Welcome!', 'SUCCESS');
   }
