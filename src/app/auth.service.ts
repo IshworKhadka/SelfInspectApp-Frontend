@@ -16,6 +16,11 @@ export class Authservice {
     });
   }
 
+  inviteUser(userId: string){
+    debugger
+    return this.http.post<any>(GlobalConstants.BaseURI + '/api/account/invite', userId);
+  }
+
   login(credentials: any) {
     this.http.post<any>(GlobalConstants.BaseURI + '/api/account/login', credentials).subscribe((res : any) => {
       this.authenticate(res);

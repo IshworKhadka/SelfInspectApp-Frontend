@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
+import { Authservice } from 'src/app/auth.service';
 import { Apiservice } from '../../api.service';
 import { TenantModel } from '../../models/tenant';
 
@@ -11,7 +13,7 @@ import { TenantModel } from '../../models/tenant';
 })
 export class TenantAllComponent {
   subscrption: Subscription;
-  constructor(public api: Apiservice, private router: Router) {}
+  constructor(public api: Apiservice, private auth: Authservice, private router: Router, private toastr: ToastrService) {}
 
   tenants: any;
   
@@ -39,6 +41,12 @@ export class TenantAllComponent {
   delete(model: TenantModel) {
     this.api.deleteUser(model).subscribe((res) => {
       this.router.navigateByUrl('tenant/add-tenant');
+    });
+  }
+
+  inviteUser(userId: string){
+    this.auth.inviteUser(userId).subscribe((res: any) => {
+      this.toastr.success("Invitation link sent", "SUCCESS");
     });
   }
 

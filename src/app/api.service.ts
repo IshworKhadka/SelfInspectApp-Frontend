@@ -18,7 +18,7 @@ export class Apiservice {
   }
   //Get users
   GetUserDetails() {
-    return this.http.get(GlobalConstants.BaseURI + '/api/account');
+    return this.http.get(GlobalConstants.BaseURI + '/api/account/get-all');
   }
   
   //View User
