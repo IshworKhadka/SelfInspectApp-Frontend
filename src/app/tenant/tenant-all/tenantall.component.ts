@@ -16,11 +16,13 @@ export class TenantAllComponent {
   constructor(public api: Apiservice, private router: Router, private auth: Authservice, private toastr: ToastrService) {}
 
   tenants: any;
-
+  
   ngOnInit() {
-    this.api.GetTenantDetails().subscribe((res) => {
+    this.api.GetUserDetails().subscribe((res) => {
       this.tenants = res;
+      console.log(this.tenants)
     });
+    //GetTenantDetails
 
     // this.subscrption.add(
     //   this.dialogRef.subscribe(
@@ -37,7 +39,7 @@ export class TenantAllComponent {
   }
 
   delete(model: TenantModel) {
-    this.api.deleteTenant(model).subscribe((res) => {
+    this.api.deleteUser(model).subscribe((res) => {
       this.router.navigateByUrl('tenant/add-tenant');
     });
   }

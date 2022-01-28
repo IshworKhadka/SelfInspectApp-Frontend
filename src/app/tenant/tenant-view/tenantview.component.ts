@@ -55,9 +55,8 @@ export class TenantViewComponent {
         var id = this.route.snapshot.paramMap.get('id');
 
         if(id != null){
-            this.api.viewTenant(parseInt(id)).subscribe(res => {
+            this.api.viewUser(id).subscribe(res => {
                 this.model = res;
-
                 this.HouseArray.forEach(element => {
                     if(element.houseId == this.model.houseId){
                         this.model.house_address = element.house_number + " " + element.street + element.suburb;
@@ -70,12 +69,12 @@ export class TenantViewComponent {
     }
 
     put(model: TenantModel){
-        this.api.putTenantDetails(model);
+        this.api.putUserDetails(model);
 
     }
 
     delete(model: TenantModel){
-        this.api.deleteTenant(model).subscribe(res => {
+        this.api.deleteUser(model).subscribe(res => {
             this.router.navigateByUrl('tenant/add-tenant');
         })
     }

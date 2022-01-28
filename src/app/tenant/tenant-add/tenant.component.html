@@ -5,17 +5,17 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark" *ngIf="model.tenantId == 0">Add Tenant</h1>
-          <h1 class="m-0 text-dark" *ngIf="model.tenantId != 0">Edit Tenant</h1>
+          <h1 class="m-0 text-dark" *ngIf="model.userId == ''">Add Tenant</h1>
+          <h1 class="m-0 text-dark" *ngIf="model.userId != ''">Edit Tenant</h1>
         </div>
         <!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" *ngIf="model.tenantId == 0">
+            <li class="breadcrumb-item active" *ngIf="model.userId == ''">
               Add Tenant
             </li>
-            <li class="breadcrumb-item active" *ngIf="model.tenantId != 0">
+            <li class="breadcrumb-item active" *ngIf="model.userId != ''">
               Edit Tenant
             </li>
           </ol>
@@ -192,7 +192,7 @@
         <div class="card-footer">
           <button
             type="submit"
-            *ngIf="model.tenantId == 0"
+            *ngIf="model.userId == ''"
             (click)="post(model)"
             class="btn bg-gradient btn-primary"
           >
@@ -204,7 +204,7 @@
                 type="submit"
                 data-toggle="modal"
                 data-target="#modal-update"
-                *ngIf="model.tenantId != 0"
+                *ngIf="model.userId != ''"
                 class="btn bg-gradient btn-primary"
               >
                 Update
@@ -213,7 +213,7 @@
             <div class="btn-group" role="group" aria-label="Third group">
               <button
                 type="submit"
-                *ngIf="model.tenantId != 0"
+                *ngIf="model.userId != ''"
                 (click)="resetModel()"
                 class="btn bg-gradient btn-primary"
               >
@@ -273,7 +273,7 @@
         </button>
         <button
           type="button"
-          (click)="api.putTenantDetails(model)"
+          (click)="put(model)"
           data-dismiss="modal"
           class="btn btn-primary"
         >
