@@ -1,0 +1,237 @@
+<form class="form-horizontal">
+    <div class="form-group row">
+      <label for="houseSize" class="col-sm-2 col-form-label">House Size</label>
+      <div class="col-sm-10">
+        <input
+          class="form-control"
+          [(ngModel)]="model.house_size"
+          name="house_Size"
+          id="houseSize"
+          placeholder="House Size"
+          required
+        />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="postalCodeInput" class="col-sm-2 col-form-label"
+        >House Type</label
+      >
+      <div class="col-sm-10">
+        <select
+          class="form-control select2 select2-hidden-accessible"
+          [(ngModel)]="model.house_type"
+          name="house_type"
+          style="width: 100%"
+          data-select2-id="1"
+          tabindex="-1"
+          aria-hidden="true"
+        >
+          <option value="" disabled selected hidden>Select House Type</option>
+          <option *ngFor="let type of house_types" [value]="type">
+            {{ type }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="houseNumber" class="col-sm-2 col-form-label"
+        >House number</label
+      >
+      <div class="col-sm-10">
+        <input
+          type="text"
+          [(ngModel)]="model.house_number"
+          name="house_number"
+          class="form-control"
+          id="houseNumber"
+          placeholder="House Number"
+        />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="streetName" class="col-sm-2 col-form-label">Street</label>
+      <div class="input-group date col-sm-10" data-target-input="nearest">
+        <input
+          type="text"
+          [(ngModel)]="model.street"
+          class="form-control"
+          name="street"
+          id="streetName"
+          placeholder="Street"
+          required
+        />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="suburbInput" class="col-sm-2 col-form-label">Suburb</label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          [(ngModel)]="model.suburb"
+          name="suburb"
+          class="form-control"
+          id="suburbInput"
+          placeholder="Suburb"
+        />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputUsername" class="col-sm-2 col-form-label">State</label>
+      <div class="col-sm-10">
+        <select
+          class="form-control select2 select2-hidden-accessible"
+          [(ngModel)]="model.state"
+          name="state"
+          style="width: 100%"
+          data-select2-id="1"
+          tabindex="-1"
+          aria-hidden="true"
+        >
+          <option value="" disabled selected hidden>Select State</option>
+          <option *ngFor="let state of states" [value]="state">
+            {{ state }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="postalCodeInput" class="col-sm-2 col-form-label"
+        >Postal Code</label
+      >
+      <div class="col-sm-10">
+        <input
+          type="text"
+          [(ngModel)]="model.postal_code"
+          name="postal_code"
+          class="form-control"
+          id="postalCodeInput"
+          placeholder="Postal Code"
+        />
+      </div>
+    </div>
+  
+    <div class="form-group row custom">
+      <div class="offset-sm-2 col-sm-10">
+        <div class="checkbox">
+          <!-- <label>
+              <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
+            </label> -->
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="offset-sm-2 col-sm-10">
+        <div
+          class="btn-toolbar"
+          role="toolbar"
+          aria-label="Toolbar with button groups"
+        >
+          <div class="btn-group mr-2" role="group" aria-label="First group">
+            <button
+              type="submit"
+              class="btn btn-warning"
+              data-toggle="modal"
+              data-target="#modal-update"
+            >
+              Update
+            </button>
+          </div>
+          <div class="btn-group mr-2" role="group" aria-label="Second group">
+            <button
+              type="submit"
+              class="btn btn-danger"
+              data-toggle="modal"
+              data-target="#modal-delete"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  
+  <!-- Update Modal -->
+  <div
+    class="modal fade"
+    id="modal-update"
+    style="display: none"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Warning!</h4>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to update this item?</p>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            Close
+          </button>
+          <button
+            type="button"
+            (click)="put(model)"
+            data-dismiss="modal"
+            class="btn btn-primary"
+          >
+            Confirm
+          </button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  
+  <!-- Delete Modal -->
+  <div
+    class="modal fade"
+    id="modal-delete"
+    style="display: none"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Warning!</h4>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete this item?</p>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            Close
+          </button>
+          <button
+            type="button"
+            (click)="delete(model)"
+            data-dismiss="modal"
+            class="btn btn-primary"
+          >
+            Confirm
+          </button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  
