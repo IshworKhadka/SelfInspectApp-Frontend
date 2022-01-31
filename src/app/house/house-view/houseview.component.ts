@@ -48,7 +48,7 @@ export class HouseViewComponent {
     let fileToUpload = <File>files[0];
     const formData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
-    this.http.put(GlobalConstants.BaseURI + `/api/house/upload/${this.id}`, formData, {reportProgress: true, observe: 'events'})
+    this.http.put(GlobalConstants.BaseURI + `/api/house/upload/${this.id}`, formData, {reportProgress: true}) //observe: 'events'
       .subscribe((path:any) => {
         this.imagePath = path;
         debugger
@@ -59,6 +59,13 @@ export class HouseViewComponent {
         //   this.onUploadFinished.emit(event.body);
         // }
       });
+  }
+
+  public createImgPath = (serverPath: string) => {
+    var search = '\\';
+    var replaceWith = '/';
+    var result = serverPath.split(search).join(replaceWith);
+    return `http://localhost:59123/${result}`;
   }
 
 
