@@ -35,8 +35,6 @@ export class HouseViewComponent {
   getId(): any {
     return this.houseStore.houseid;
   }
-
-
   editPicture(){
     
   }
@@ -67,11 +65,6 @@ export class HouseViewComponent {
     var result = serverPath.split(search).join(replaceWith);
     return `http://localhost:59123/${result}`;
   }
-
-
-  
-  
-  
 
   delete_picture(){
 

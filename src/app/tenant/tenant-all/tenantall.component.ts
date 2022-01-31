@@ -13,7 +13,7 @@ import { TenantModel } from '../../models/tenant';
 })
 export class TenantAllComponent {
   subscrption: Subscription;
-  constructor(public api: Apiservice, private auth: Authservice, private router: Router, private toastr: ToastrService) {}
+  constructor(public api: Apiservice, private router: Router, private auth: Authservice, private toastr: ToastrService) {}
 
   tenants: any;
   
@@ -44,8 +44,8 @@ export class TenantAllComponent {
     });
   }
 
-  inviteUser(userId: string){
-    this.auth.inviteUser(userId).subscribe((res: any) => {
+  inviteUser(email: any){
+    this.auth.inviteUser(email).subscribe((res: any) => {
       this.toastr.success("Invitation link sent", "SUCCESS");
     });
   }
