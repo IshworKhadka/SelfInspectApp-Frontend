@@ -67,42 +67,37 @@ export class KitchenComponent implements OnInit {
 
   uploadFiles(): void {
     this.messages = [];
+    var files = this.fileSource;
 
-    if (this.fileSource) {
-      for (let i = 0; i < this.fileSource.length; i++) {
-        this.upload(i, this.fileSource[i]);
-      }
+    if (files.length === 0) {
+      return;
     }
-  }
+    let filesToUpload : File[] = files;
+    const formData = new FormData();
+      
+    Array.from(filesToUpload).map((file, index) => {
+      return formData.append('file'+index, file, file.name);
+    });
+    formData.append('HouseId', '1');
+    formData.append('SectionId', '1');
 
-  upload(idx: number, file: File | any): void {
-    if (file) {
-      this.progressInfos[idx] = { value: 0, fileName: file.name };
-    }
-    if (file) {
-      let fileToUpload = <File>file;
-      const formData = new FormData();
-      formData.append('file', fileToUpload, fileToUpload.name);
-      formData.append('houseSectionId', '1');
-
-      this.http.post(GlobalConstants.BaseURI + '/api/house', formData, {reportProgress: true, observe: 'events'})
-      .subscribe({
-        next: (event: any) => {
-          if (event.type === HttpEventType.UploadProgress) {
-            this.progressInfos[idx].value = Math.round(100 * event.loaded / event.total);
-          } else if (event instanceof HttpResponse) {
-            const msg = 'Uploaded the file successfully: ' + file.name;
-            this.messages.push(msg);
-            //this.imageInfos = this.uploadService.getFiles();
-          }
-        },
-        error: (err: any) => {
-          this.progressInfos[idx].value = 0;
-          const msg = 'Could not upload the file: ' + file.name;
-          this.messages.push(msg);
+    this.http.post(GlobalConstants.BaseURI + '/api/house/Upload', formData)
+    .subscribe({
+      next: (event: any) => {
+        if (event.type === HttpEventType.UploadProgress) {
+          //this.progressInfos[idx].value = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          //const msg = 'Uploaded the file successfully: ' + file.name;
+          //this.messages.push(msg);
+          //this.imageInfos = this.uploadService.getFiles();
         }
-      });
-    }
+      },
+      error: (err: any) => {
+        //this.progressInfos[idx].value = 0;
+        const msg = 'Could not upload the file';
+        this.messages.push(msg);
+      }
+    });
   }
 
 }
