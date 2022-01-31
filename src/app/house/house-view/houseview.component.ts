@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { GlobalConstants } from 'src/app/global-constants';
 import { HouseModel } from 'src/app/models/house';
 import { Apiservice } from '../../api.service';
-import { HouseStore } from './house.store';
+import { HouseStore } from './house-store';
 
 @Component({
   selector: 'app-house-room',
@@ -14,12 +14,17 @@ import { HouseStore } from './house.store';
   styleUrls: ['../house.component.css'],
 })
 export class HouseViewComponent {
+  public progress: number;
+  public message: string;
+  @Output() public onUploadFinished = new EventEmitter();
+
+
   id: any;
   houseStore = new HouseStore();
+  imagePath: any
 
   constructor(public api: Apiservice, private http: HttpClient, private route: ActivatedRoute,  
     public router : Router, private toastr: ToastrService) {
-      
       this.id = this.route.snapshot.paramMap.get('id');
       this.houseStore.houseid = this.id;
     }
@@ -30,37 +35,36 @@ export class HouseViewComponent {
   getId(): any {
     return this.houseStore.houseid;
   }
-  
-  
-  // public uploadFile = () => {
-  //   if (files.length == 0) {
-  //     return;
-  //   }
+  editPicture(){
+    
+  }
 
-  //   let filesTeUpload: File[] = files;
-  //   const formData = new FormData();
+  public uploadFiles = (files: any) => {
+    if (files.length === 0) {
+      return;
+    }
+    let fileToUpload = <File>files[0];
+    const formData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
+    this.http.put(GlobalConstants.BaseURI + `/api/house/upload/${this.id}`, formData, {reportProgress: true}) //observe: 'events'
+      .subscribe((path:any) => {
+        this.imagePath = path;
+        debugger
+        // if (event.type === HttpEventType.UploadProgress)
+        //   this.progress = Math.round(100 * event.loaded / event.total);
+        // else if (event.type === HttpEventType.Response) {
+        //   this.message = 'Upload success.';
+        //   this.onUploadFinished.emit(event.body);
+        // }
+      });
+  }
 
-  //   Array.from(filesTeUpload).map((file, index) => {
-  //     return formData.append('file' + index, file, file.name);
-  //   });
-  //   console.log(formData)
-
-  //   this.http
-  //     .post(GlobalConstants.BaseURI + '/api/house', formData, {
-  //       reportProgress: true,
-  //       observe: 'events',
-  //     })
-  //     .subscribe((event) => {
-  //       if (event.type === HttpEventType.UploadProgress) {
-  //         this.progress = Math.round(
-  //           (100 * event.loaded) / (event.total as number)
-  //         );
-  //       } else if (event.type === HttpEventType.Response) {
-  //         this.message = 'Upload Successful';
-  //         this.onUploadFinished.emit(event.body);
-  //       }
-  //     });
-  // };
+  public createImgPath = (serverPath: string) => {
+    var search = '\\';
+    var replaceWith = '/';
+    var result = serverPath.split(search).join(replaceWith);
+    return `http://localhost:59123/${result}`;
+  }
 
   delete_picture(){
 

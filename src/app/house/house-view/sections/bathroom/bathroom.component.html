@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-primary">
+            <div class="card-header">
+                <div class="card-title"> Bathroom Images</div>
+            </div>
+            <div class="card-body">
+                <div class="row" style="margin-bottom: 15px">
+                    <label for="file" class="custom-file-upload label-normal">
+                      <i class="fa fa-cloud-upload-alt fa-lg"></i> Choose Files
+                    </label>
+                    <input
+                      id="file"
+                      type="file"
+                      #file
+                      placeholder="Choose file"
+                      accept="image/*"
+                      (change)="onFileChange($event)"
+                      multiple
+                      style="margin-bottom: 15px; display: none"
+                    />
+                    &nbsp;
+                    <label class="label-normal" style="padding: 8px">
+                      <span *ngIf="previews.length <= 0">No file chosen</span>
+                      <span *ngIf="previews.length > 0">{{ previews.length }} files</span>
+                    </label>
+          
+                    <div class="col-md-12">
+                      <div class="img-main-container">
+                        <div *ngFor="let url of previews; let i = index">
+                          <div class="img-container">
+                            <img [src]="url" class="image" height="200" />
+                            <span class="img-button">
+                              <button class="btn btn-danger" (click)="removeImage(i)">
+                                <i class="fa fa-trash-alt"></i>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+          
+                    <button
+                      type="button"
+                      class="btn btn-success"
+                      [disabled]="!selectedFiles"
+                      (click)="uploadFiles()"
+                    >
+                      Upload File
+                    </button>
+                  </div>
+          
+                  <div
+                    *ngIf="messages.length"
+                    class="alert alert-secondary my-3"
+                    role="alert"
+                  >
+                    <ul *ngFor="let msg of messages; let i = index">
+                      <li>{{ msg }}</li>
+                    </ul>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>

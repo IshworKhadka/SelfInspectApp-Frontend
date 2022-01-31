@@ -28,12 +28,29 @@
               <div class="text-center">
                 <img
                   class="profile-user-img img-fluid img-circle"
-                  src="../../../assets/img/user4-128x128.jpg"
+                  [src] ="imagePath"
                   alt="User profile picture"
                 />
               </div>
             </div>
             <!-- /.card-body -->
+            <div>
+              <button class="btn btn-primary" (click)="file.click()" title="Edit House Picture">
+                <i class="fas fa-edit"></i>
+              </button>
+            </div>
+            <div>
+              <input
+                id="file"
+                type="file"
+                #file
+                placeholder="Choose file"
+                accept="image/*"
+                (change)="uploadFiles(file.files)"
+                multiple
+                style="margin-bottom: 15px; display: none"
+            />
+            </div>
           </div>
           <!-- /.card -->
 

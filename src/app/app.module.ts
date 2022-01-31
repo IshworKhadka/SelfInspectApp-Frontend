@@ -100,6 +100,7 @@ const appRoutes: Routes = [
     HeaderComponent,
     HomeComponent, AboutComponent,
     HouseComponent, HouseAllComponent, HouseViewComponent, HouseListComponent,
+    BedroomComponent, KitchenComponent, HallComponent, BathroomComponent, HouseAboutComponent, HouseDetailsComponent,
     TenantComponent, TenantAllComponent, TenantViewComponent, TenantListComponent,
     AddScheduleComponent, ScheduleAllComponent, InspectHouseComponent, InspectionSubmitComponent,
      AddReminderComponent, BedroomComponent, KitchenComponent, HallComponent, BathroomComponent, 
