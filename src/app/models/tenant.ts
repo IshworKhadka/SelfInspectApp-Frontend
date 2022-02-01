@@ -11,9 +11,7 @@ export class TenantModel {
     public password: string = '';
     public houseId: number = 0;
     public house_address: string = '';
-
-    //add this prop in backend model
-    //public imageURL: string
+    public imagePath: string
 
     constructor(
     ) { }

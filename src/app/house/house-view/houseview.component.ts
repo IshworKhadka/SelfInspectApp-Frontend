@@ -20,6 +20,7 @@ export class HouseViewComponent {
 
 
   id: any;
+  model: any;
   houseStore = new HouseStore();
   imagePath: any
 
@@ -30,6 +31,13 @@ export class HouseViewComponent {
     }
 
   ngOnInit() {
+    this.api.viewHouse(parseInt(this.id))
+    .subscribe(
+      (res: HouseModel | any) => {
+      this.model = res;
+      debugger;
+      this.imagePath = this.model.imgpath;
+    })
   }
 
   getId(): any {

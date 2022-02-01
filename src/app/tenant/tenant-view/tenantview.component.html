@@ -26,7 +26,7 @@
             <div class="card card-primary card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle" src="../../../assets/img/user.png" alt="User profile picture">
+                  <img class="profile-user-img img-fluid img-circle" [src]="model.imagePath" alt="User profile picture">
                 </div>
 
                 <h3 class="profile-username text-center">{{ model.name }}</h3>
@@ -54,6 +54,23 @@
                 
               </div>
               <!-- /.card-body -->
+              <div>
+                <button class="btn btn-primary" (click)="file.click()" title="Edit House Picture">
+                  <i class="fas fa-edit"></i>
+                </button>
+              </div>
+              <div>
+                <input
+                  id="file"
+                  type="file"
+                  #file
+                  placeholder="Choose file"
+                  accept="image/*"
+                  (change)="uploadFiles(file.files)"
+                  multiple
+                  style="margin-bottom: 15px; display: none"
+              />
+              </div>
             </div>
             <!-- /.card -->
 

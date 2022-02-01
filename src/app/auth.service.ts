@@ -16,9 +16,9 @@ export class Authservice {
     });
   }
 
-  inviteUser(userId: string){
+  inviteUser(email: string){
     debugger
-    return this.http.post<any>(GlobalConstants.BaseURI + '/api/account/invite', userId);
+    return this.http.post<any>(GlobalConstants.BaseURI + '/api/account/invite', email);
   }
 
   login(credentials: any) {
@@ -28,7 +28,6 @@ export class Authservice {
   }
 
   authenticate(res: any){
-    debugger
     localStorage.setItem('token', res.token)
     this.router.navigateByUrl('dashboard/home');
     this.toastr.success('Welcome!', 'SUCCESS');

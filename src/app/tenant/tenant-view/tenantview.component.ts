@@ -7,6 +7,7 @@ import { TenantModel } from "src/app/models/tenant";
 
 import { ActivityModel } from '../../models/activity';
 import { HouseModel } from "src/app/models/house";
+import { HttpClient } from "@angular/common/http";
 
 
 @Component({
@@ -19,8 +20,8 @@ export class TenantViewComponent {
     /**
      *
      */
-    constructor(private api: Apiservice, private route: ActivatedRoute, public router : Router) {
-        
+    constructor(private api: Apiservice, private http: HttpClient, private route: ActivatedRoute, public router : Router) {
+        this.id = this.route.snapshot.paramMap.get('id');
     }
 
 
@@ -29,13 +30,11 @@ export class TenantViewComponent {
     days = GlobalConstants.weekday
     months= GlobalConstants.month
 
-    
-
-
-
+    id: any;
     model: any
-    HouseArray: HouseModel[];
+    HouseArray: HouseModel[]
     a_model: ActivityModel
+  
 
     activity_list: ActivityModel[] = 
     [
@@ -57,6 +56,7 @@ export class TenantViewComponent {
         if(id != null){
             this.api.viewUser(id).subscribe(res => {
                 this.model = res;
+                debugger;
                 this.HouseArray.forEach(element => {
                     if(element.houseId == this.model.houseId){
                         this.model.house_address = element.house_number + " " + element.street + element.suburb;
@@ -78,6 +78,25 @@ export class TenantViewComponent {
             this.router.navigateByUrl('tenant/add-tenant');
         })
     }
+
+    public uploadFiles = (files: any) => {
+        if (files.length === 0) {
+          return;
+        }
+        let fileToUpload = <File>files[0];
+        const formData = new FormData();
+        formData.append('file', fileToUpload, fileToUpload.name);
+        this.http.put(GlobalConstants.BaseURI + `/api/account/upload/${this.id}`, formData, {reportProgress: true}) //observe: 'events'
+          .subscribe((path:any) => {
+            this.model.imagePath = path;
+            // if (event.type === HttpEventType.UploadProgress)
+            //   this.progress = Math.round(100 * event.loaded / event.total);
+            // else if (event.type === HttpEventType.Response) {
+            //   this.message = 'Upload success.';
+            //   this.onUploadFinished.emit(event.body);
+            // }
+          });
+      }
 
 
     delete_picture(){
