@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apiservice } from '../api.service';
 import { Authservice } from '../auth.service';
+import { UserStore } from '../user-store.store';
 
 @Component({
   selector: 'app-header',
@@ -10,12 +11,25 @@ import { Authservice } from '../auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
-  constructor( public router : Router, public api : Apiservice, private auth: Authservice) { }
+  userStore: UserStore = new UserStore();
+  menuList : any;
+  roleId: any;
+  constructor( public router : Router, public api : Apiservice, private auth: Authservice) {
+    
+    
+   }
 
   ngOnInit(): void {
     this.getHousesCount();
     this.getTenantsCount();
+    this.roleId = localStorage.getItem('role');
+    let role: number = localStorage.getItem('role') as any;                     
+      this.api.getMenu(role)
+        .subscribe((res: any) => {
+          this.menuList = res;
+          console.log(this.menuList)
+        }
+      )
   }
 
   redirectToHome(){

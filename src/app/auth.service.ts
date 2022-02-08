@@ -4,9 +4,11 @@ import { Router } from '@angular/router';
 import { GlobalConstants } from './global-constants';
 import { ToastrService } from 'ngx-toastr';
 import { TenantModel } from './models/tenant';
+import { UserStore } from './user-store.store';
 
 @Injectable()
 export class Authservice {
+  userStore: UserStore = new UserStore();
   constructor(private http: HttpClient, private router: Router, private toastr: ToastrService) {}
 
  
@@ -24,6 +26,8 @@ export class Authservice {
 
   login(credentials: any) {
     this.http.post(GlobalConstants.BaseURI + '/api/account/login', credentials).subscribe((res : any) => {
+      this.userStore.userRoleId = res.userDetail.roleId;
+      localStorage.setItem('role', res.userDetail.roleId)
       this.authenticate(res);
     });
   }
