@@ -100,7 +100,7 @@
             <img src="assets/img/user.png" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="javascript:void(0);" (click) = "redirectToHome()" class="d-block">Admin</a>
+            <a href="javascript:void(0);" (click) = "redirectToHome()" class="d-block">{{name}}</a>
           </div>
         </div>
   
@@ -117,8 +117,8 @@
                 </p>
               </a>
             </li>
-            <li class="nav-item has-treeview" *ngIf="roleId == 1">
-              <a href="#" class="nav-link">
+            <li class="nav-item has-treeview" *ngIf="roleId == 1" ngClass="{{showHome == true ? 'menu-is-opening menu-open' : ''}}">
+              <a class="nav-link" (click) = "toggleHome()">
                 <i class="nav-icon fas fa-home"></i>
                 <p>
                   House
@@ -141,8 +141,9 @@
                 </li>
               </ul>
             </li>
-            <li class="nav-item has-treeview" *ngIf="roleId == 3">
-              <a href="#" class="nav-link">
+            <li class="nav-item has-treeview" *ngIf="roleId == 1 || roleId == 3" 
+            ngClass="{{showTenants == true ? 'menu-is-opening menu-open' : ''}}">
+              <a class="nav-link" (click)="toggleTenants()">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
                   Tenants
@@ -165,8 +166,9 @@
                 </li>
               </ul>
             </li>
-            <li class="nav-item has-treeview" *ngIf="roleId == 1">
-              <a href="#" class="nav-link">
+            <li class="nav-item has-treeview" *ngIf="roleId == 1" (click)="toggleInspection()"
+            ngClass="{{showInspection == true ? 'menu-is-opening menu-open' : ''}}">
+              <a href="javascript:void(0);" class="nav-link">
                 <i class="nav-icon fas fa-search-plus"></i>
                 <p>
                   Inspection
@@ -194,8 +196,9 @@
                 </li>
               </ul>
             </li>
-            <li class="nav-item has-treeview"> 
-              <a href="#" class="nav-link">
+            <li class="nav-item has-treeview" (click)="toggleReport()"
+            ngClass="{{showReport == true ? 'menu-is-opening menu-open' : ''}}"> 
+              <a href="javascript:void(0);" class="nav-link">
                 <i class="nav-icon fas fa-edit"></i>
                 <p>
                   Reports
@@ -209,7 +212,7 @@
                     <p>House Report</p>
                   </a>
                 </li>
-                <li class="nav-item" *ngIf="roleId == 3">
+                <li class="nav-item" *ngIf="roleId == 1 || roleId == 3">
                   <a href="pages/forms/advanced.html" class="nav-link">
                     <i class="fas fa-file-alt nav-icon"></i>
                     <p>Tenant Report</p>

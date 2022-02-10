@@ -1,33 +1,42 @@
 import { analyzeAndValidateNgModules } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apiservice } from '../api.service';
 import { Authservice } from '../auth.service';
 import { UserStore } from '../user-store.store';
+import { SignalrService } from '../signalr.service';
+
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit  {
   userStore: UserStore = new UserStore();
   menuList : any;
   roleId: any;
-  constructor( public router : Router, public api : Apiservice, private auth: Authservice) {
-    
-    
+  name: any;
+
+  showHome: boolean=false;
+  showTenants: boolean=false;
+  showInspection: boolean=false;
+  showReport: boolean=false;
+
+  constructor(
+    public signalrService: SignalrService,
+    public router : Router, public api : Apiservice, private auth: Authservice) {
    }
 
   ngOnInit(): void {
     this.getHousesCount();
     this.getTenantsCount();
+    this.name = localStorage.getItem('personName');
     this.roleId = localStorage.getItem('role');
     let role: number = localStorage.getItem('role') as any;                     
       this.api.getMenu(role)
         .subscribe((res: any) => {
           this.menuList = res;
-          console.log(this.menuList)
         }
       )
   }
@@ -83,7 +92,19 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('house/view-list');
   }
 
-  
+  toggleHome(){
+    this.showHome = !this.showHome;
+  }
 
+  toggleTenants(){
+    this.showTenants = !this.showTenants;
+  }
 
+  toggleInspection(){
+    this.showInspection = !this.showInspection;
+  }
+
+  toggleReport(){
+    this.showReport = !this.showReport;
+  }
 }
