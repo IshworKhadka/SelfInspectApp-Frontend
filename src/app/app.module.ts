@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
@@ -37,15 +37,24 @@ import { HallComponent } from './house/house-view/views/hall/hall.component';
 import { BathroomComponent } from './house/house-view/views/bathroom/bathroom.component';
 import { HouseAboutComponent } from './house/house-view/views/house-about/house-about.component';
 import { HouseDetailsComponent } from './house/house-view/views/house-details/house-details.component';
+import { AuthGuard } from './auth.guard';
+import { SignalrService } from './signalr.service';
 
 
 const appRoutes: Routes = [
+  { 
+    path: '', redirectTo: 'dashboard/home', pathMatch: 'full' 
+  },
+  { 
+    path: '#', redirectTo: '', pathMatch: 'full' 
+  },
   {
     path: 'dashboard', component: HeaderComponent,
     children: [
       {path: 'home', component: HomeComponent},
       {path: 'about', component: AboutComponent},
-    ]
+    ],
+    canActivate: [AuthGuard]
   },
   {
     path: 'house', component: HeaderComponent,
@@ -63,7 +72,8 @@ const appRoutes: Routes = [
           {path: "house-details", component: HouseDetailsComponent}
         ]
       },
-    ]
+    ],
+    canActivate: [AuthGuard]
   },
   {
     path: 'tenant', component: HeaderComponent,
@@ -72,7 +82,8 @@ const appRoutes: Routes = [
       {path: 'view-all', component: TenantAllComponent},
       {path: 'view-list', component: TenantListComponent},
       {path: 'view-tenant/:id', component: TenantViewComponent},
-    ]
+    ],
+    canActivate: [AuthGuard]
   },
   {
     path: 'inspection', component: HeaderComponent,
@@ -80,7 +91,8 @@ const appRoutes: Routes = [
       {path: 'add-inspection', component: AddScheduleComponent},
       {path: 'inspect-house', component: InspectHouseComponent}, 
       {path: 'inspect-submit', component: InspectionSubmitComponent}
-    ]
+    ],
+    canActivate: [AuthGuard]
   },
   {
     path: 'login', component:  LoginComponent
@@ -89,7 +101,7 @@ const appRoutes: Routes = [
     path: 'register', component: RegisterComponent
   },
   {
-    path: '**', redirectTo: '/login', pathMatch: 'full'
+    path: '**', redirectTo: '', pathMatch: 'full'
   }
 ];
 
@@ -110,7 +122,8 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule, BrowserAnimationsModule, 
     HttpClientModule, FormsModule, ReactiveFormsModule,
-    AppRoutingModule, RouterModule.forRoot(appRoutes),
+    AppRoutingModule,
+    RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules }),
     ToastrModule.forRoot({
       timeOut: 2000,
       progressBar: true,
@@ -118,7 +131,7 @@ const appRoutes: Routes = [
       preventDuplicates: true
     })
   ],
-  providers: [Apiservice, Authservice, {
+  providers: [Apiservice, SignalrService, Authservice, {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true

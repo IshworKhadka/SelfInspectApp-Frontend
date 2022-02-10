@@ -100,7 +100,7 @@
             <img src="assets/img/user.png" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="javascript:void(0);" (click) = "redirectToHome()" class="d-block">Admin</a>
+            <a href="javascript:void(0);" (click) = "redirectToHome()" class="d-block">{{name}}</a>
           </div>
         </div>
   
@@ -109,17 +109,16 @@
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
-            <li class="nav-item has-treeview menu-open">
+            <li class="nav-item">
               <a href="javascript:void(0);" (click) = "redirectToHome()" class="nav-link active">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Dashboard
-                  <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
             </li>
-            <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
+            <li class="nav-item has-treeview" *ngIf="roleId == 1" ngClass="{{showHome == true ? 'menu-is-opening menu-open' : ''}}">
+              <a class="nav-link" (click) = "toggleHome()">
                 <i class="nav-icon fas fa-home"></i>
                 <p>
                   House
@@ -142,8 +141,9 @@
                 </li>
               </ul>
             </li>
-            <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
+            <li class="nav-item has-treeview" *ngIf="roleId == 1 || roleId == 3" 
+            ngClass="{{showTenants == true ? 'menu-is-opening menu-open' : ''}}">
+              <a class="nav-link" (click)="toggleTenants()">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
                   Tenants
@@ -166,8 +166,9 @@
                 </li>
               </ul>
             </li>
-            <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
+            <li class="nav-item has-treeview" *ngIf="roleId == 1" (click)="toggleInspection()"
+            ngClass="{{showInspection == true ? 'menu-is-opening menu-open' : ''}}">
+              <a href="javascript:void(0);" class="nav-link">
                 <i class="nav-icon fas fa-search-plus"></i>
                 <p>
                   Inspection
@@ -195,8 +196,9 @@
                 </li>
               </ul>
             </li>
-            <li class="nav-item has-treeview"> 
-              <a href="#" class="nav-link">
+            <li class="nav-item has-treeview" (click)="toggleReport()"
+            ngClass="{{showReport == true ? 'menu-is-opening menu-open' : ''}}"> 
+              <a href="javascript:void(0);" class="nav-link">
                 <i class="nav-icon fas fa-edit"></i>
                 <p>
                   Reports
@@ -204,19 +206,19 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="roleId == 1">
                   <a href="pages/forms/general.html" class="nav-link">
                     <i class="fas fa-file-alt nav-icon"></i>
                     <p>House Report</p>
                   </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="roleId == 1 || roleId == 3">
                   <a href="pages/forms/advanced.html" class="nav-link">
                     <i class="fas fa-file-alt nav-icon"></i>
                     <p>Tenant Report</p>
                   </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="roleId == 1">
                   <a href="pages/forms/editors.html" class="nav-link">
                     <i class="fas fa-file-alt nav-icon"></i>
                     <p>Warning Report</p>
@@ -224,55 +226,7 @@
                 </li>
               </ul>
             </li>
-            <li class="nav-header">EXAMPLES</li>
-            <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
-                <i class="nav-icon far fa-envelope"></i>
-                <p>
-                  Mailbox
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="pages/mailbox/mailbox.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Inbox</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/mailbox/compose.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Compose</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/mailbox/read-mail.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Read</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-header">LABELS</li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon far fa-circle text-danger"></i>
-                <p class="text">Important</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon far fa-circle text-warning"></i>
-                <p>Warning</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon far fa-circle text-info"></i>
-                <p>Informational</p>
-              </a>
-            </li>
+            
           </ul>
         </nav>
         <!-- /.sidebar-menu -->

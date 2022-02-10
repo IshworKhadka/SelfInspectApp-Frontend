@@ -143,5 +143,8 @@ export class Apiservice {
     );
   }
 
+  getMenu(id: number) {
+    return this.http.get(GlobalConstants.BaseURI + `/api/Menu/GetMenuByRoleId//${id}`);
+  }
 
 }
