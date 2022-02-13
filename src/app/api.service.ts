@@ -194,6 +194,7 @@ export class Apiservice {
   //Get images submitted for inspection
   imageModel: any
   GetImagesForInspection(model: ImageModel){
+    console.log(model)
     this.imageModel = model
     return this.http.get(GlobalConstants.BaseURI + '/api/house/GetImages',  this.imageModel)
     
@@ -211,6 +212,17 @@ export class Apiservice {
 
   getMenu(id: number) {
     return this.http.get(GlobalConstants.BaseURI + `/api/Menu/GetMenuByRoleId//${id}`);
+  }
+
+
+  InspectionReport(){
+    this.http.get(GlobalConstants.BaseURI + '/api/pdfcreator');
+
+  }
+
+  FeedbackReport(){
+    this.http.get(GlobalConstants.BaseURI + '/api/pdfcreator');
+
   }
 
 

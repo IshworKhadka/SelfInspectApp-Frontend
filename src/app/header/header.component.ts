@@ -1,8 +1,10 @@
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient } from '@microsoft/signalr';
 import { Apiservice } from '../api.service';
 import { Authservice } from '../auth.service';
+import { GlobalConstants } from '../global-constants';
 import { SignalrService } from '../signalr.service';
 import { UserStore } from '../user-store.store';
 
@@ -23,7 +25,7 @@ export class HeaderComponent implements OnInit {
   showReport: boolean=false;
 
   constructor( public signalrService: SignalrService,
-    public router : Router, public api : Apiservice, private auth: Authservice) { }
+    public router : Router, public http: HttpClient, public api : Apiservice, private auth: Authservice) { }
 
   ngOnInit(): void {
     this.getHousesCount();
@@ -109,8 +111,6 @@ export class HeaderComponent implements OnInit {
   toggleReport(){
     this.showReport = !this.showReport;
   }
-
-  
 
 
 }

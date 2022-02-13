@@ -58,18 +58,18 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr *ngFor="let model of inspection_schedules">
+                  <tr *ngFor="let model of inspection_scheules_viewmodel">
                     <td>{{ model.inspectionScheduleId }}</td>
                     <td> 
                       <a>
-                        # {{ model.houseId}} 
+                        # {{ model.houseAddress}} 
                       </a>
                       <br>
                       <small>
                           Scheduled {{ model.inspection_date }}
                       </small>
                     </td>
-                    <td>{{ model.userId }}</td>
+                    <td>{{ model.userName }}</td>
                     <td></td>
                       <!-- <td>
                          {{ imageCount }}

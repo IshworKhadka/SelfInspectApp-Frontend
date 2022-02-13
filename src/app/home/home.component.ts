@@ -10,7 +10,7 @@ import { InspectionScheduleViewModel } from '../models/view-model/inspection-sch
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 
@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
   msg: string;
   connId : string;
   userId : string;
+  roleId: any
 
   inspection_schedules: any
   inspection_scheules_viewmodel: InspectionScheduleViewModel[] = []
@@ -35,6 +36,7 @@ export class HomeComponent implements OnInit {
   user = localStorage.getItem('user')
 
   ngOnInit(): void {
+    this.roleId = localStorage.getItem('role');
     this.getHousesCount();
     this.getTenantsCount();
     this.getInspectionMonthlyCount();
@@ -56,27 +58,27 @@ export class HomeComponent implements OnInit {
           this.inspection_scheules_viewmodel.push(element)
       });
 
-      //create house address from houseid
-      this.inspection_scheules_viewmodel.forEach(element => {
-        this.api.viewHouse(element.houseId).subscribe((res: any) => {
-          this.house = res
-          element.house_address = this.house.house_number + " " + this.house.street + ", " + this.house.suburb
-        })
-        this.api.GetUserNameById(element.userId).subscribe((res: any) => {
-          debugger
-          this.name = res
-          element.user_name =  this.name
+      // //create house address from houseid
+      // this.inspection_scheules_viewmodel.forEach(element => {
+      //   this.api.viewHouse(element.houseId).subscribe((res: any) => {
+      //     this.house = res
+      //     element.house_address = this.house.house_number + " " + this.house.street + ", " + this.house.suburb
+      //   })
+      //   this.api.GetUserNameById(element.userId).subscribe((res: any) => {
+      //     debugger
+      //     this.name = res
+      //     element.user_name =  this.name
 
-        })
+      //   })
         
-      })
+      // })
 
-      this.inspection_schedules_tenant_viewmodel.forEach(element => {
-        this.api.viewHouse(element.houseId).subscribe((res: any) => {
-          this.house = res
-          element.house_address = this.house.house_number + " " + this.house.street + ", " + this.house.suburb
-        })
-      });
+      // this.inspection_schedules_tenant_viewmodel.forEach(element => {
+      //   this.api.viewHouse(element.houseId).subscribe((res: any) => {
+      //     this.house = res
+      //     element.house_address = this.house.house_number + " " + this.house.street + ", " + this.house.suburb
+      //   })
+      // });
     });
 
 
@@ -128,8 +130,8 @@ export class HomeComponent implements OnInit {
   sendMsgInv(): void {
     if (this.msg?.trim() === "" || this.msg == null) return;
 
-    this.signalrService.hubConnection.invoke("sendMsg", this.selectedUser.connId, this.msg)
-    .catch((err: any) => console.error(err));
+    this.signalrService.hubConnection.invoke("sendMsg", localStorage.getItem('connId'), this.selectedUser.connId, this.msg)
+    .catch(err => console.error(err));
 
     if (this.selectedUser.msgs == null) this.selectedUser.msgs = [];
     this.selectedUser.msgs.push(new Message(this.msg, true));
@@ -137,10 +139,12 @@ export class HomeComponent implements OnInit {
   }
 
   sendMsgLis(): void {
-    this.signalrService.hubConnection.on("sendMsgResponse", (connId: string, msg: string) => {
-      let receiver = this.users.find(u => u.connId === connId) as any;
-      if (receiver.msgs == null) receiver.msgs = [];
-      receiver?.msgs.push(new Message(msg, false));
+    this.signalrService.hubConnection.on("sendMsgResponseCon", (msgData: any) => {
+      let receiver = this.users.find(u => u.connId === msgData.fromConnId) as any;
+      if(msgData.toConnId == localStorage.getItem('connId')){
+        if (receiver.msgs == null) receiver.msgs = [];
+        receiver?.msgs.push(new Message(msgData.msg, false));
+      }
     });
   }
 
@@ -171,6 +175,7 @@ export class HomeComponent implements OnInit {
     let currentMonth = new Date().getMonth() + 1
     let currentYear = new Date().getFullYear()
     this.api.GetInspectionDetails().subscribe((res: any) => {
+      this.inspection_scheules_viewmodel = res;
       this.inspectionList = res
       this.totalInspectionsCount = res.length;
 

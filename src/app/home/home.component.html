@@ -95,7 +95,7 @@
       <!-- /.row -->
       <div class="row">
         <!-- Left col for Admin-->
-        <div class="col-md-6">
+        <div class="col-md-6"  *ngIf="roleId == 1">
           <!-- MAP & BOX PANE -->
           <!-- TABLE: UPCOMING -->
           <div class="card">
@@ -125,8 +125,8 @@
                   </thead>
                   <tbody>
                     <tr *ngFor="let schedule of inspection_scheules_viewmodel">
-                      <td>{{ schedule.house_address }}</td>
-                      <td>{{ schedule.userId }}</td>
+                      <td>{{ schedule.houseAddress }}</td>
+                      <td>{{ schedule.userName }}</td>
                       <td>
                         <div
                           class="sparkbar"
@@ -168,7 +168,7 @@
         </div>
         <!-- /.col -->
          <!-- Right col for Tenant-->
-        <div class="col-md-6">
+        <div class="col-md-6" *ngIf="roleId == 3">
           <!-- MAP & BOX PANE -->
           <!-- TABLE: UPCOMING -->
           <div class="card">
@@ -197,7 +197,7 @@
                   </thead>
                   <tbody>
                     <tr *ngFor="let schedule of inspection_schedules_tenant_viewmodel">
-                      <td>{{ schedule.house_address }}</td>
+                      <td>{{ schedule.houseAddress }}</td>
                       <td>
                         <div
                           class="sparkbar"
@@ -255,7 +255,7 @@
                   <div
                     *ngFor="let msg of selectedUser?.msgs"
                     class="msg"
-                    [class.mine]="msg.mine"
+                    [ngClass]="msg.mine ? ' mine' : ' other'"
                   >
                     {{ msg.content }}
                   </div>
@@ -278,7 +278,7 @@
         <!-- Chat Box -->
       </div>
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 custom">
           <div class="card">
             <div class="card-header">
               <h5 class="card-title">Monthly Recap Report</h5>

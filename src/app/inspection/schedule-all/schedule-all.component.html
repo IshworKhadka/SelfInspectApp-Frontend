@@ -36,11 +36,11 @@
           <tr
             class="clickLink"
             (click)="api.editInspection(model)"
-            *ngFor="let model of inspection_schedules"
+            *ngFor="let model of inspection_scheules_viewmodel"
           >
             <td>{{ model.inspectionScheduleId }}</td>
-            <td>{{ model.houseId}}</td>
-            <td>{{ model.userId }}</td>
+            <td>{{ model.houseAddress}}</td>
+            <td>{{ model.userName }}</td>
             <td>{{ model.inspection_date }}</td>
             <td>{{ dateComparator(model.inspection_date) }}</td>
             <td class="text-right py-0 align-middle">

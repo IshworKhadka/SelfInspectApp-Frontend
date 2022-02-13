@@ -41,7 +41,7 @@ export class TenantProfileComponent {
     public router: Router,
     private toastr: ToastrService
   ) {
-    this.id = localStorage.getItem('user');
+    this.id = localStorage.getItem('personId');
   }
 
   ngOnInit() {
@@ -51,7 +51,6 @@ export class TenantProfileComponent {
 
     if (this.id != null) {
       this.api.viewUser(this.id).subscribe((res) => {
-        debugger
         this.model = res;
         this.model.userId = this.id; //Since the user api does not return id
 

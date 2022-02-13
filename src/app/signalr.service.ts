@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import * as signalR from "@microsoft/signalr";
-import { ToastrService } from "ngx-toastr";
 import { Observable, Subject } from "rxjs";
 import { GlobalConstants } from "./global-constants";
 
@@ -10,7 +9,7 @@ export class User {
     public name: string;
     public roleId: number;
     public connId: string;//signalr
-    public msgs: Array<Message>;  //(only client-side property)
+    public msgs: Array<Message>;
 }
 
 export class Message {
@@ -26,8 +25,7 @@ export class SignalrService {
     userData: User;
 
     constructor(
-        public router: Router,
-        public toastr: ToastrService,
+        public router: Router
     ) { 
         // if(this.userData?.name == null){
         //     this.userData.name = localStorage.getItem('personName') == "undefined" ? '' : localStorage.getItem('personName') || '';
@@ -51,7 +49,7 @@ export class SignalrService {
             .then(() => {
                 this.ssSubj.next({type: "HubConnStarted"});
             })
-            .catch((err: any) => console.log('Error while connecting hub: ' + err))
+            .catch(err => console.log('Error while connecting hub: ' + err))
     }
 
 }

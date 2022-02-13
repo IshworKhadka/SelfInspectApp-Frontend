@@ -11,13 +11,12 @@ export class InspectHouseComponent implements OnInit {
 
   constructor(public api: Apiservice, private router: Router) { }
 
-  inspection_schedules: any
+  inspection_scheules_viewmodel: any
   imageCount: any
 
   ngOnInit(): void {
     this.api.GetInspectionDetails().subscribe((res: any) => {
-      this.inspection_schedules = res;
-      console.log(this.inspection_schedules)
+      this.inspection_scheules_viewmodel = res;
     });
     
   }

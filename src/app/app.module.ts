@@ -62,7 +62,7 @@ const appRoutes: Routes = [
       {path: 'home', component: HomeComponent},
       {path: 'about', component: AboutComponent},
     ],
-    //canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'house', component: HeaderComponent,
@@ -81,7 +81,7 @@ const appRoutes: Routes = [
         ]
       },
     ],
-    //canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'tenant', component: HeaderComponent,
@@ -92,7 +92,7 @@ const appRoutes: Routes = [
       {path: 'view-tenant/:id', component: TenantViewComponent},
       {path: 'view-profile', component: TenantProfileComponent}
     ],
-    //canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'inspection', component: HeaderComponent,
@@ -118,7 +118,7 @@ const appRoutes: Routes = [
         ]
     }
     ],
-    //canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'login', component:  LoginComponent

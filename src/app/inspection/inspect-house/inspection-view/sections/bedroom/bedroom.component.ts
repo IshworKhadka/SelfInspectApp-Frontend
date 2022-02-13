@@ -59,16 +59,6 @@ export class BedroomInspectionViewComponent implements OnInit {
 
     //Get Images
     this.getBedroomAdminImages()
-   
-    // this.api.GetImagesForInspection(this.model).subscribe((response1: any) => {
-    //   console.log(this.bedroomAdminImageModel)
-    //   console.log(response1)
-    //   this.originalImages = response1
-    // })
-
-    // this.api.GetImagesForInspection(this.bedroomTenantImageModel).subscribe((response2: any) => {
-    //   this.submittedImages = response2
-    // })
 
     this.getBedroomATenantImages()
 
@@ -83,14 +73,7 @@ export class BedroomInspectionViewComponent implements OnInit {
 
       this.bedroomTenantImageModel = new ImageModel
         (0, "", this.model.userId, new Date(), this.model.houseId, 3)
-
-        // this.api.GetImagesForInspection(this.bedroomAdminImageModel).subscribe((res1: any) => {
-        //   this.originalImages = res1
-        // })
-
-        // this.api.GetImagesForInspection(this.bedroomTenantImageModel).subscribe((res2: any) => {
-        //   this.submittedImages = res2
-        // })
+        
     })
   }
 
@@ -98,7 +81,7 @@ export class BedroomInspectionViewComponent implements OnInit {
   getBedroomAdminImages(){
     this.api.GetImagesForInspection(this.bedroomAdminImageModel).subscribe((res: any) => {
       this.originalImages = res
-      debugger
+      console.log(res)
     })
   }
 
