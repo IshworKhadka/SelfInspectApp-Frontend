@@ -13,22 +13,10 @@
         </li>
       </ul>
   
-      <!-- SEARCH FORM -->
-      <form class="form-inline ml-3">
-        <div class="input-group input-group-sm">
-          <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-navbar" type="submit">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
-        </div>
-      </form>
-  
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
         <!-- Messages Dropdown Menu -->
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown custom">
           <a class="nav-link" data-toggle="dropdown" href="#">
             <i class="far fa-comments"></i>
             <span class="badge badge-danger navbar-badge">3</span>
@@ -54,7 +42,7 @@
           </div>
         </li>
         <!-- Notifications Dropdown Menu -->
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown custom">
           <a class="nav-link" data-toggle="dropdown" href="#">
             <i class="far fa-bell"></i>
             <span class="badge badge-warning navbar-badge">15</span>
@@ -119,7 +107,7 @@
               </a>
             </li>
             <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
+              <a href="#" class="nav-link" target="_blank">
                 <i class="nav-icon fas fa-home"></i>
                 <p>
                   House
@@ -129,7 +117,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="javascript:void(0);" class="nav-link" (click)="redirectToAddHouse()">
+                  <a href="javascript:void(0);" class="nav-link" (click)="redirectToAddHouse()" >
                     <i class="far fa-plus-square nav-icon"></i>
                     <p>Add House</p>
                   </a>
@@ -223,6 +211,14 @@
                   </a>
                 </li>
               </ul>
+            </li>
+            <li class="nav-item has-treeview"> 
+              <a href="javascript:void(0);" (click) = "redirectToProfile()" class="nav-link">
+                <i class="nav-icon fas fa-user"></i>
+                <p>
+                  View Profile
+                </p>
+              </a>
             </li>
             <li class="nav-header">EXAMPLES</li>
             <li class="nav-item has-treeview">

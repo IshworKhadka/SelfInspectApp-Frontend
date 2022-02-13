@@ -29,6 +29,7 @@
             <th>Tenant</th>
             <th>Date</th>
             <th>Status</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -39,9 +40,9 @@
           >
             <td>{{ model.inspectionScheduleId }}</td>
             <td>{{ model.houseId}}</td>
-            <td>{{ model.tenantId }}</td>
+            <td>{{ model.userId }}</td>
             <td>{{ model.inspection_date }}</td>
-            <td>{{ model.inspection_status }}</td>
+            <td>{{ dateComparator(model.inspection_date) }}</td>
             <td class="text-right py-0 align-middle">
               <div class="btn-group btn-group-sm">
                 <a

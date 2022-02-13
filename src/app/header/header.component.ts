@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apiservice } from '../api.service';
 import { Authservice } from '../auth.service';
+import { SignalrService } from '../signalr.service';
+import { UserStore } from '../user-store.store';
 
 @Component({
   selector: 'app-header',
@@ -10,12 +12,31 @@ import { Authservice } from '../auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  userStore: UserStore = new UserStore();
+  menuList : any;
+  roleId: any;
+  name: any;
 
-  constructor( public router : Router, public api : Apiservice, private auth: Authservice) { }
+  showHome: boolean=false;
+  showTenants: boolean=false;
+  showInspection: boolean=false;
+  showReport: boolean=false;
+
+  constructor( public signalrService: SignalrService,
+    public router : Router, public api : Apiservice, private auth: Authservice) { }
 
   ngOnInit(): void {
     this.getHousesCount();
     this.getTenantsCount();
+
+    this.name = localStorage.getItem('personName');
+    this.roleId = localStorage.getItem('role');
+    let role: number = localStorage.getItem('role') as any;                     
+      this.api.getMenu(role)
+        .subscribe((res: any) => {
+          this.menuList = res;
+        }
+      )
   }
 
   redirectToHome(){
@@ -56,7 +77,7 @@ export class HeaderComponent implements OnInit {
 
   tenantsCount: any;
   getTenantsCount(){
-      this.api.GetTenantDetails().subscribe((res: any) => {
+      this.api.GetUserDetails().subscribe((res: any) => {
         this.tenantsCount = res.length;
       })
   }
@@ -67,6 +88,26 @@ export class HeaderComponent implements OnInit {
 
   redirectToViewAllHouse(){
     this.router.navigateByUrl('house/view-list');
+  }
+
+  redirectToProfile(){
+    this.router.navigateByUrl('tenant/view-profile');
+  }
+
+  toggleHome(){
+    this.showHome = !this.showHome;
+  }
+
+  toggleTenants(){
+    this.showTenants = !this.showTenants;
+  }
+
+  toggleInspection(){
+    this.showInspection = !this.showInspection;
+  }
+
+  toggleReport(){
+    this.showReport = !this.showReport;
   }
 
   

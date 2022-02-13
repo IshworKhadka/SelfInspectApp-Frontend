@@ -23,12 +23,6 @@ export class LoginComponent {
   }
 
 
-  login(model: LoginModel){
-    if(true){
-      this.router.navigateByUrl('dashboard/home');
-    }
 
-    
-  }
 
 }

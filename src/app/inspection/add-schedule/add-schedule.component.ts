@@ -30,7 +30,7 @@ export class AddScheduleComponent implements OnInit {
     this.api.GetHouseDetails().subscribe((res: any) => {
       this.HouseArray = res;
     });
-    this.api.GetTenantDetails().subscribe((res: any) => {
+    this.api.GetUserDetails().subscribe((res: any) => {
       this.TenantArray = res;
     });
 

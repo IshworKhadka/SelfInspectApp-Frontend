@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Apiservice } from 'src/app/api.service';
 import { GlobalConstants } from 'src/app/global-constants';
 import { HouseModel } from 'src/app/models/house';
+import { HouseStore } from '../../house.store';
 
 
 @Component({
@@ -15,8 +16,6 @@ import { HouseModel } from 'src/app/models/house';
 })
 export class BathroomComponent implements OnInit {
 
-  houseId: any
-
   selectedFiles?: FileList;
   progressInfos: any[] = [];
   messages: string[] = [];
@@ -25,6 +24,8 @@ export class BathroomComponent implements OnInit {
   imageInfos?: Observable<any>;
   fileSource: any[] = [];
 
+  id: any
+  houseStore = new HouseStore();
   constructor(
     public api: Apiservice,
     private http: HttpClient,
@@ -32,10 +33,14 @@ export class BathroomComponent implements OnInit {
     public router: Router,
     private toastr: ToastrService
   ) { 
-    this.houseId = this.route.snapshot.paramMap.get('id');
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.houseStore.houseid = this.id
   }
 
   ngOnInit(): void {
+
+    //Temporary solution
+    this.id = localStorage.getItem('house')
   }
 
   onFileChange(event: any) {
@@ -69,43 +74,46 @@ export class BathroomComponent implements OnInit {
     }
   }
 
-  uploadFiles(): void {
+  user: any
+  uploadSectionImage(): void {
     this.messages = [];
+    var files = this.fileSource;
 
-    if (this.fileSource) {
-      for (let i = 0; i < this.fileSource.length; i++) {
-        this.upload(i, this.fileSource[i]);
-      }
+    if (files.length === 0) {
+      return;
     }
-  }
+    let filesToUpload : File[] = files;
+    const formData = new FormData();
+      
+    Array.from(filesToUpload).map((file, index) => {
+      return formData.append('file'+index, file, file.name);
+    });
+    debugger
+    this.user = localStorage.getItem('user')
+    formData.append('HouseId', this.id);
+    formData.append('SectionId', '4');
+    //formData.append('SubmittedBy', this.user)
+    formData.append('SubmittedBy', "admin")
+    
 
-  upload(idx: number, file: File | any): void {
-    if (file) {
-      this.progressInfos[idx] = { value: 0, fileName: file.name };
-    }
-    if (file) {
-      let fileToUpload = <File>file;
-      const formData = new FormData();
-      formData.append('file', fileToUpload, fileToUpload.name);
-      formData.append('houseSectionId', '2');
-
-      this.http.post(GlobalConstants.BaseURI + '/api/house', formData).subscribe({
-        next: (event: any) => {
-          if (event.type === HttpEventType.UploadProgress) {
-            this.progressInfos[idx].value = Math.round(100 * event.loaded / event.total);
-          } else if (event instanceof HttpResponse) {
-            const msg = 'Uploaded the file successfully: ' + file.name;
-            this.messages.push(msg);
-            //this.imageInfos = this.uploadService.getFiles();
-          }
-        },
-        error: (err: any) => {
-          this.progressInfos[idx].value = 0;
-          const msg = 'Could not upload the file: ' + file.name;
-          this.messages.push(msg);
+    this.http.post(GlobalConstants.BaseURI + '/api/house/Upload', formData)
+    .subscribe({
+      next: (event: any) => {
+        this.toastr.success('Image Uploaded', 'SUCCESS')
+        if (event.type === HttpEventType.UploadProgress) {
+          //this.progressInfos[idx].value = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          //const msg = 'Uploaded the file successfully: ' + file.name;
+          //this.messages.push(msg);
+          //this.imageInfos = this.uploadService.getFiles();
         }
-      });
-    }
+      },
+      error: (err: any) => {
+        //this.progressInfos[idx].value = 0;
+        const msg = 'Could not upload the file';
+        this.messages.push(msg);
+      }
+    });
   }
 
 }

@@ -6,14 +6,17 @@ import { TenantModel } from './models/tenant';
 import { Router } from '@angular/router';
 import { GlobalConstants } from './global-constants';
 import { InspectionScheduleModel } from './models/inspection-schedule';
+import { ToastrService } from 'ngx-toastr';
+import { InspectionSubmitModel } from './models/inspection-submit';
+import { ImageModel } from './models/images';
+import { FeedbackModel } from './models/feedback';
 
 @Injectable()
 export class Apiservice {
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private toastr: ToastrService) {}
 
   //Create user
   postUserDetails(model: TenantModel): Observable<any> {
-    debugger
     return this.http.post(GlobalConstants.BaseURI + '/api/account/register', model);
   }
   //Get users
@@ -26,21 +29,35 @@ export class Apiservice {
     // this.selectedTenant.next(model);
     return this.http.get(GlobalConstants.BaseURI + `/api/account/${id}`);
   }
+
+  //Get UserName
+  GetUserNameById(id: string){
+    debugger
+    return this.http.get(GlobalConstants.BaseURI + `/api/values/GetNameById/${id}`);
+  }
+
+  
   //Delete User
   deleteUser(model: TenantModel) {
     return this.http.delete(
       GlobalConstants.BaseURI + `/api/account/${model.userId}`
     );
   }
-  //Update User
+  //Update User 1
   putUserDetails(model: TenantModel) {
-    debugger;
     this.http
       .put(GlobalConstants.BaseURI + `/api/account/${model.userId}`, model)
       .subscribe((res) => {
-        console.log(res);
+        this.toastr.success('Updated Successfully', 'SUCCESS');
       });
   }
+  
+
+  //Update User 2
+  // putUserDetails(model: TenantModel) {
+  //   return this.http.put(GlobalConstants.BaseURI + `/api/account/${model.userId}`, model)
+      
+  // }
 
   //Service for static data
   GetHouseSectionDetails() {
@@ -68,6 +85,9 @@ export class Apiservice {
   viewHouse(id: number) {
     // this.selectedTenant.next(model);
     return this.http.get(GlobalConstants.BaseURI + `/api/house/${id}`);
+  }
+  viewHouseByUserId(userId: string){
+     return this.http.get(GlobalConstants.BaseURI + `/api/house/houseByUserId/${userId}`);
   }
 
   private selectedHouse = new Subject<any>();
@@ -129,7 +149,6 @@ export class Apiservice {
 
   }
   postInspectionDetails(model: InspectionScheduleModel){
-    debugger;
     return this.http.post(GlobalConstants.BaseURI + '/api/inspection', model);
   }
 
@@ -142,6 +161,67 @@ export class Apiservice {
       GlobalConstants.BaseURI + `/api/inspection/${model.inspectionScheduleId}`
     );
   }
+
+  viewInspection(id: number){
+    return this.http.get(
+      GlobalConstants.BaseURI + `/api/inspection/${id}`
+    );
+  }
+
+  inspectionModel: any
+  //inspectionByUserId: any
+  viewInspectionByUserId(userId: string){
+    //this.inspectionByUserId = userId
+    this.inspectionModel = new InspectionScheduleModel();
+    this.inspectionModel.userId = userId
+    console.log(this.inspectionModel)
+    debugger
+    return this.http.get(
+      GlobalConstants.BaseURI + '/api/inspection/GetByUserId', this.inspectionModel);
+
+  }
+
+  inspectionId: any
+  viewHouseByInspectionId(id: number){
+    this.inspectionId = id
+    return this.http.get
+    (
+      GlobalConstants.BaseURI + '/api/inspection/ViewHouseByInspectionId', this.inspectionId
+    );
+    
+  }
+
+  //Get images submitted for inspection
+  imageModel: any
+  GetImagesForInspection(model: ImageModel){
+    this.imageModel = model
+    return this.http.get(GlobalConstants.BaseURI + '/api/house/GetImages',  this.imageModel)
+    
+  }
+
+
+  //Post Feedback
+  feedbackModel: any
+  postFeedback(model: FeedbackModel){
+    this.feedbackModel = model
+    debugger
+    return this.http.post(GlobalConstants.BaseURI + '/api/inspection/PostFeedback',  this.feedbackModel)
+  }
+
+
+  getMenu(id: number) {
+    return this.http.get(GlobalConstants.BaseURI + `/api/Menu/GetMenuByRoleId//${id}`);
+  }
+
+
+
+
+
+
+
+  
+  
+
 
 
 }

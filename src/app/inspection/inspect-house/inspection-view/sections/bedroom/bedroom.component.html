@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card card-primary">
+        <div class="card-header">
+          <div class="card-title">Original Images</div>
+        </div>
+        <div class="card-body" style="height: 400px; overflow: scroll">
+          <div class="row" style="margin-bottom: 15px">
+            <div class="col-md-12">
+              <div class="img-main-container">
+                <div *ngFor="let url of originalImages; let i = index">
+                  <div class="img-container">
+                    <img id="#myImg" [src]="url" class="image" height="200" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card card-primary">
+        <div class="card-header">
+          <div class="card-title">Submitted Images</div>
+        </div>
+        <div class="card-body" style="height: 400px; overflow: scroll">
+          <div class="row" style="margin-bottom: 15px">
+            <div class="col-md-12">
+              <div class="img-main-container">
+                <div *ngFor="let url of submittedImages; let i = index">
+                  <div class="img-container">
+                    <img id="#myImg" [src]="url" class="image" height="200" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-inspection-feedback></app-inspection-feedback>
+</div>

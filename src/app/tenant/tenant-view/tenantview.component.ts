@@ -56,7 +56,9 @@ export class TenantViewComponent {
         if(id != null){
             this.api.viewUser(id).subscribe(res => {
                 this.model = res;
-                debugger;
+                console.log(this.model)
+                this.model.userId = id    //Since the api does not return id
+
                 this.HouseArray.forEach(element => {
                     if(element.houseId == this.model.houseId){
                         this.model.house_address = element.house_number + " " + element.street + element.suburb;

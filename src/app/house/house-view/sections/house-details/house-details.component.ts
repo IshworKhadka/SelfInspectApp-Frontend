@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { Apiservice } from 'src/app/api.service';
 import { GlobalConstants } from 'src/app/global-constants';
 import { HouseModel } from 'src/app/models/house';
-import { HouseStore } from '../../house-store';
+import { HouseStore } from '../../house.store';
 import { HouseViewComponent } from '../../houseview.component';
 
 @Component({
@@ -22,7 +22,7 @@ export class HouseDetailsComponent implements OnInit {
 
   states = GlobalConstants.states;
 
-  model: any;
+  model: HouseModel;
   id: any;
 
   constructor(

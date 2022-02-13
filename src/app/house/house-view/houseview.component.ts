@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { GlobalConstants } from 'src/app/global-constants';
 import { HouseModel } from 'src/app/models/house';
 import { Apiservice } from '../../api.service';
-import { HouseStore } from './house-store';
+import { HouseStore } from './house.store';
 
 @Component({
   selector: 'app-house-room',
@@ -20,9 +20,9 @@ export class HouseViewComponent {
 
 
   id: any;
-  model: any;
+  model: any
   houseStore = new HouseStore();
-  imagePath: any
+  imagePath: string
 
   constructor(public api: Apiservice, private http: HttpClient, private route: ActivatedRoute,  
     public router : Router, private toastr: ToastrService) {
@@ -31,12 +31,14 @@ export class HouseViewComponent {
     }
 
   ngOnInit() {
+    this.id = this.route.snapshot.paramMap.get('id');
+    localStorage.setItem('house', this.id)
+
     this.api.viewHouse(parseInt(this.id))
     .subscribe(
-      (res: HouseModel | any) => {
+      (res) => {
       this.model = res;
-      debugger;
-      this.imagePath = this.model.imgpath;
+      this.imagePath = this.model.imgPath
     })
   }
 
@@ -45,49 +47,28 @@ export class HouseViewComponent {
   }
 
 
-  editPicture(){
-    
-  }
-
-  public uploadFiles = (files: any) => {
+  public uploadHouseImage = (files: any) => {
     if (files.length === 0) {
       return;
     }
     let fileToUpload = <File>files[0];
     const formData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
+    debugger
     this.http.put(GlobalConstants.BaseURI + `/api/house/upload/${this.id}`, formData, {reportProgress: true}) //observe: 'events'
       .subscribe((path:any) => {
         this.imagePath = path;
-        debugger
-        // if (event.type === HttpEventType.UploadProgress)
-        //   this.progress = Math.round(100 * event.loaded / event.total);
-        // else if (event.type === HttpEventType.Response) {
-        //   this.message = 'Upload success.';
-        //   this.onUploadFinished.emit(event.body);
-        // }
       });
   }
 
-  public createImgPath = (serverPath: string) => {
-    var search = '\\';
-    var replaceWith = '/';
-    var result = serverPath.split(search).join(replaceWith);
-    return `http://localhost:59123/${result}`;
-  }
-
-
-  
-  
   
 
-  delete_picture(){
-
-  }
-
-  AddToLocalStorage(model: HouseModel) {}
-
-  UpdateLocalStorage(model: HouseModel) {}
+  // public createImgPath = (serverPath: string) => {
+  //   var search = '\\';
+  //   var replaceWith = '/';
+  //   var result = serverPath.split(search).join(replaceWith);
+  //   return `http://localhost:59123/${result}`;
+  // }
 
   // resetModel() {
   //   this.model = new HouseModel(0, "", "", "", "", "", "", "", "");

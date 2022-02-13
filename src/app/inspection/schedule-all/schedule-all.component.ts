@@ -20,8 +20,21 @@ export class ScheduleAllComponent implements OnInit {
   ngOnInit(): void {
     this.api.GetInspectionDetails().subscribe((res: any) => {
       this.inspection_schedules = res;
-      console.log(this.inspection_schedules)
     });
+  }
+
+
+  currentDate = new Date();
+  dateComparator(date: Date){
+    if(date > this.currentDate){
+      debugger
+      return "Pending"
+    }
+    else{
+      debugger
+      return "Completed"
+    }
+
   }
 
   editInspection(model: InspectionScheduleModel){

@@ -28,7 +28,7 @@
               <div class="text-center">
                 <img
                   class="profile-user-img img-fluid img-circle"
-                  [src] ="model.imgPath"
+                  [src] ="imagePath"
                   alt="User profile picture"
                 />
               </div>
@@ -46,7 +46,7 @@
                 #file
                 placeholder="Choose file"
                 accept="image/*"
-                (change)="uploadFiles(file.files)"
+                (change)="uploadHouseImage(file.files)"
                 multiple
                 style="margin-bottom: 15px; display: none"
             />
