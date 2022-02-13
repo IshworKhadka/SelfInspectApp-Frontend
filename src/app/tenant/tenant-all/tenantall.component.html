@@ -47,8 +47,8 @@
             <div class="btn-group btn-group-sm">
               <a
                 href="javascript:void(0);"
-                (click)="api.viewUser(model.userId)"
-                [routerLink]="['/tenant/view-tenant', model.userId]"
+                (click)="api.viewHouse(model.tenantId)"
+                [routerLink]="['/tenant/view-tenant', model.tenantId]"
                 class="btn btn-primary"
                 ><i class="fas fa-eye"></i
               ></a>
