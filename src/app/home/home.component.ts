@@ -91,7 +91,7 @@ export class HomeComponent implements OnInit {
   sendMsgInv(): void {
     if (this.msg?.trim() === "" || this.msg == null) return;
 
-    this.signalrService.hubConnection.invoke("sendMsg", this.selectedUser.connId, this.msg)
+    this.signalrService.hubConnection.invoke("sendMsg", localStorage.getItem('connId'), this.selectedUser.connId, this.msg)
     .catch(err => console.error(err));
 
     if (this.selectedUser.msgs == null) this.selectedUser.msgs = [];
@@ -100,10 +100,13 @@ export class HomeComponent implements OnInit {
   }
 
   sendMsgLis(): void {
-    this.signalrService.hubConnection.on("sendMsgResponse", (connId: string, msg: string) => {
-      let receiver = this.users.find(u => u.connId === connId) as any;
-      if (receiver.msgs == null) receiver.msgs = [];
-      receiver?.msgs.push(new Message(msg, false));
+    this.signalrService.hubConnection.on("sendMsgResponseCon", (msgData: any) => {
+      console.log(msgData)
+      let receiver = this.users.find(u => u.connId === msgData.fromConnId) as any;
+      if(msgData.toConnId == localStorage.getItem('connId')){
+        if (receiver.msgs == null) receiver.msgs = [];
+        receiver?.msgs.push(new Message(msgData.msg, false));
+      }
     });
   }
 }
